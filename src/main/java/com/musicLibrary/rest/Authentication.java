@@ -100,7 +100,7 @@ public class Authentication {
 		for (Albums album : albumList) {
 			System.out.println(album.getAlbumId() + " " + album.getPrice());
 		}
-		
+		System.out.println("test git");
 		return Response.status(200).entity(new User(1, "amol")).build();
 	}
 }
