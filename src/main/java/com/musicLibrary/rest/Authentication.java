@@ -1,5 +1,6 @@
 package com.musicLibrary.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -67,13 +68,18 @@ public class Authentication {
 
 		System.out.println("in serch" + itemId);
 		SearchProcess searchProcess = new SearchProcess();
+		
+		List<Tracks> tracksList = new ArrayList<Tracks>();
 
-		List<Tracks> tracksList = searchProcess.serachtracks(itemId);
-		if (tracksList.isEmpty()) {
-			String output = "Nothing found";
-			return Response.status(400).entity(output).build();
+		if (itemType.trim().toLowerCase().equals("track")) {
+			tracksList = searchProcess.serachtracks(itemId);
+			if (tracksList.isEmpty()) {
+				String output = "Nothing found";
+				return Response.status(400).entity(output).build();
+			}
 		}
 		request.setAttribute("searchedTracks", tracksList);
+
 		return Response.status(200).entity(new User(1, "amol")).build();
 	}
 }

@@ -9,10 +9,11 @@ import java.util.List;
 
 import com.musicLibrary.Beans.Tracks;
 
-public class TrackDao {
-	private static final String GET_TRACKS = "select * from tracks where trackId = ? ";
+public class SearchDao {
 
-	public List<Tracks> listTracks() {
+	private static final String SEARCH_TRACKS = "select * from tracks where trackId like ? ";
+
+	public List<Tracks> searchtracks(String trackId) {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		Connection connection = null;
@@ -25,15 +26,12 @@ public class TrackDao {
 			e1.printStackTrace();
 		}
 
-		if (connection != null) {
-			int startNumber = 1;
+		if (connection != null &&  null != trackId ) {
 			try {
-				statement = connection.prepareStatement(GET_TRACKS);
-				while (startNumber < 11) {
-					startNumber++;
-					statement.setString(1, (startNumber + ""));
+				statement = connection.prepareStatement(SEARCH_TRACKS);
+					statement.setString(1, (trackId.trim()+"%"));
 					resultSet = statement.executeQuery();
-					if (resultSet.next()) {
+					while (resultSet.next()) {
 						tracks = new Tracks();
 						tracks.setTrackId(resultSet.getString("trackId"));
 						tracks.setAlbumId((null == resultSet.getString("albumId"))? "" : resultSet.getString("albumId"));
@@ -41,7 +39,6 @@ public class TrackDao {
 						tracks.setGenreIds((null == resultSet.getString("genreIds"))? "" : resultSet.getString("genreIds"));
 						tracksList.add(tracks);
 					}
-				}
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -49,8 +46,6 @@ public class TrackDao {
 				DatabaseConnection.closeAllDb(connection, resultSet, statement);
 			}
 		}
-		
 		return tracksList;
 	}
-
 }
