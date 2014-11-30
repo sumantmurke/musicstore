@@ -1,9 +1,9 @@
 package com.musicLibrary.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -14,7 +14,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.musicLibrary.Beans.Albums;
 import com.musicLibrary.Beans.Tracks;
 import com.musicLibrary.Beans.User;
 import com.musicLibrary.service.AuthenticationProcess;
@@ -66,37 +65,19 @@ public class Authentication {
 	public Response serachItems(@QueryParam("itemId") String itemId,
 			@QueryParam("itemType") String itemType,
 			@Context HttpServletRequest request) {
-
+		HttpSession session= request.getSession(true);
 		System.out.println("in serch" + itemId);
 		SearchProcess searchProcess = new SearchProcess();
-		
-		List<Tracks> tracksList = new ArrayList<Tracks>();
-		List<Albums> albumList = new ArrayList<Albums>();
-		
-		if (itemType.trim().toLowerCase().equals("track")) {
-			tracksList = searchProcess.serachtracks(itemId);
-			if (tracksList.isEmpty()) {
-				String output = "Nothing found";
-				return Response.status(400).entity(output).build();
-			}
-		}
-		request.setAttribute("searchedTracks", tracksList);
-		for (Tracks track : tracksList) {
-			System.out.println(track.getTrackId() + " " + track.getAlbumId() + " " + track.getPrice());
-		}
 
-		if (itemType.trim().toLowerCase().equals("album")) {
-			albumList = searchProcess.searchAlbums(itemId);
-			if (albumList.isEmpty()) {
-				String output = "Nothing found";
-				return Response.status(400).entity(output).build();
-			}
-		}
-		request.setAttribute("searchedAlbums", albumList);
-		for (Albums album : albumList) {
-			System.out.println(album.getAlbumId() + " " + album.getPrice());
+		List<Tracks> tracksList = searchProcess.serachtracks(itemId);
+		if (tracksList.isEmpty()) {
+			String output = "Nothing found";
+			System.out.println("its empty");
+			return Response.status(400).entity(output).build();
 		}
 		
+		//request.setAttribute("searchedTracks", tracksList);
+		session.setAttribute("searchedTracks", tracksList);
 		return Response.status(200).entity(new User(1, "amol")).build();
 	}
 }
