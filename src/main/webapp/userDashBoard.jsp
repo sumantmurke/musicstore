@@ -1,9 +1,5 @@
 <html lang="en">
-
 <head>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page isELIgnored="false" %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -80,12 +76,10 @@
 				dataType : "json",
 				success : function(data, textStatus, jqXHR) {
 					alert("success" + data);
-					window.location.href = "userDashBoard.jsp";
-					
 				},
 				error : function(jqXHR, textStatus, errorThrown) {
 					alert('Could not process request.. ' + errorThrown);
-					window.location.href = "userDashBoard.jsp";
+					window.location.href = "login.jsp";
 				}
 			});
 	    
@@ -166,38 +160,44 @@
         
 
 <!-- Table-->
-
-          <div class="table-responsive" style="margin-top:20px;">
-            
-              <table id="example" class="table table-hover">
-					<thead>
-						<tr>
-							<th>Track Id</th>
-							<th>Album Id</th>
-							<th>Artist Id</th>
-							<th>Genre Id</th>
-						</tr>
-					</thead>
-					<tbody>
-					<c:forEach var="item" items="${searchedTracks}" >
-					
-						 <tr>
-							<td>${item.getTrackId()}</td>
-							
-							<td>${item.getAlbumId()}</td>
-							
-							<td>${item.getArtistId()}</td>
-							
-							<td>${item.getGenreIds()}</td>
-							
-						</tr> 
-						</c:forEach>
-					</tbody>
-					 
-				</table>
-          
+<!--
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                  <th>Header</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1,001</td>
+                  <td>Lorem</td>
+                  <td>ipsum</td>
+                  <td>dolor</td>
+                  <td>sit</td>
+                </tr>
+                <tr>
+                  <td>1,002</td>
+                  <td>amet</td>
+                  <td>consectetur</td>
+                  <td>adipiscing</td>
+                  <td>elit</td>
+                </tr>
+                <tr>
+                  <td>1,003</td>
+                  <td>Integer</td>
+                  <td>nec</td>
+                  <td>odio</td>
+                  <td>Praesent</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-     
+        -->
 
 <!-- Table end-->
 
