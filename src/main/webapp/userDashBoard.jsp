@@ -60,12 +60,29 @@
 
 	//function for search on search bar after pressing enter
 	  function search(ele) {
-
-
 	    if(event.keyCode == 13) {
-	       alert('inside search after enter');
+	        alert('inside search after enter');
 	        alert(ele.value);  
-	        alert(document.getElementById("searchButton").innerHTML);      
+	        alert(document.getElementById("searchButton").innerHTML); 
+	        alert(ele.value + " " + document.getElementById("searchButton").innerHTML);
+	    	
+	        var itemId = ele.value;
+	        var itemType = document.getElementById("searchButton").innerHTML;
+	        
+	        $.ajax({
+				url : "music/Auth/serachItems",
+				type : "GET",
+				data : "itemId=" + itemId + "&itemType=" + itemType,
+				dataType : "json",
+				success : function(data, textStatus, jqXHR) {
+					alert("success" + data);
+				},
+				error : function(jqXHR, textStatus, errorThrown) {
+					alert('Could not process request.. ' + errorThrown);
+					window.location.href = "login.jsp";
+				}
+			});
+	    
 	    }
 	}
 
