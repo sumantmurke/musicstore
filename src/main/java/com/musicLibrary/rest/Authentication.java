@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -66,7 +67,8 @@ public class Authentication {
 	public Response serachItems(@QueryParam("itemId") String itemId,
 			@QueryParam("itemType") String itemType,
 			@Context HttpServletRequest request) {
-
+		
+		HttpSession session= request.getSession(true);
 		System.out.println("in serch" + itemId);
 		SearchProcess searchProcess = new SearchProcess();
 		
@@ -80,7 +82,8 @@ public class Authentication {
 				return Response.status(400).entity(output).build();
 			}
 		}
-		request.setAttribute("searchedTracks", tracksList);
+		//request.setAttribute("searchedTracks", tracksList);
+		session.setAttribute("searchedTracks", tracksList);
 		for (Tracks track : tracksList) {
 			System.out.println(track.getTrackId() + " " + track.getAlbumId() + " " + track.getPrice());
 		}
@@ -92,7 +95,8 @@ public class Authentication {
 				return Response.status(400).entity(output).build();
 			}
 		}
-		request.setAttribute("searchedAlbums", albumList);
+		//request.setAttribute("searchedAlbums", albumList);
+		session.setAttribute("searchedAlbums", albumList);
 		for (Albums album : albumList) {
 			System.out.println(album.getAlbumId() + " " + album.getPrice());
 		}
