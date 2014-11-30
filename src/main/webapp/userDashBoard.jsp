@@ -8,10 +8,6 @@
 <meta name="author" content="">
 <link rel="icon" href="../../favicon.ico">
 
-
-
-<title>Dashboard Template for Bootstrap</title>
-
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
@@ -20,9 +16,8 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
 
-<!-- Latest compiled and minified JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+<title>Dashboard Template for Bootstrap</title>
 
 <script type="text/javascript">
 	function getDetails() {
@@ -81,97 +76,74 @@
 </head>
 
 <body onload="getDetails();">
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">Project name</a>
-			</div>
-			<div id="navbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">Dashboard</a></li>
-					<li><a href="#">Settings</a></li>
-					<li><a href="#">Profile</a></li>
-					<li><a href="#">Help</a></li>
-				</ul>
-				<form class="navbar-form navbar-right">
-					<input type="text" class="form-control" placeholder="Search...">
-				</form>
-			</div>
-		</div>
-	</nav>
+	 
+	 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+    </nav>
 
-	<div class="container-fluid">
-		<div class="row" style="margin-top:80px;">
-			<div class="col-sm-3 col-md-2 sidebar">
-				<ul class="nav nav-sidebar">
-					<li class="active"><a href="#">Find Songs <span
-							class="sr-only">(current)</span></a></li>
-					<li><a href="#">Recomendations</a></li>
-					<li><a href="#">Analytics</a></li>
-					<li><a href="#">History</a></li>
-				</ul>
-				<!-- 
-				<ul class="nav nav-sidebar">
-					<li><a href="">Nav item</a></li>
-					<li><a href="">Nav item again</a></li>
-					<li><a href="">One more nav</a></li>
-					<li><a href="">Another nav item</a></li>
-					<li><a href="">More navigation</a></li>
-				</ul>
-				<ul class="nav nav-sidebar">
-					<li><a href="">Nav item again</a></li>
-					<li><a href="">One more nav</a></li>
-					<li><a href="">Another nav item</a></li>
-				</ul>
-				 -->
-			</div>
-			<div class="col-sm-9 main">
-				<h1 class="page-header">Dashboard</h1>
+    <div class="container-fluid" style="margin-top:80px;">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">Find Songs <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">Recommendations</a></li>
+            <li><a href="#">Analytics</a></li>
+            <li><a href="#">History</a></li>
+          </ul>
+          
+        </div>
+        <div class="col-sm-9 main">
+          <h1 class="page-header">Dashboard</h1>
 
 
-				<h2 class="sub-header">Search your songs here</h2>
-				<!-- Search bar-->
+          <h2 class="sub-header">Search your songs here</h2>
+        <!-- Search bar-->
 
 
-				<div class="row">
-					<div class="col-lg-6">
-						<div class="input-group">
-							<div class="input-group-btn">
-								<button type="button" class="btn btn-default dropdown-toggle"
-									data-toggle="dropdown" aria-expanded="false" id="searchButton">
-									Type of Search <span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu" role="menu">
-									<li><a id="Track" onClick="searchType(this.id)">Track</a></li>
-									<li><a id="Album" onClick="searchType(this.id)">Album
-									</a></li>
-									<li><a id="Artist" onClick="searchType(this.id)">Artist</a></li>
-									<li><a id="Genre" onClick="searchType(this.id)">Genre
-									</a></li>
-								</ul>
-							</div>
-							<!-- /btn-group -->
-							<input type="text" class="form-control" onkeydown="search(this)">
-						</div>
-						<!-- /input-group -->
-					</div>
-					<!-- /.col-lg-6 -->
-				</div>
-				<!-- /.row-->
+<div class="row">
+  <div class="col-lg-6">
+    <div class="input-group">
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="searchButton" >Type of Search <span class="caret"></span></button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a id="Track" onClick ="searchType(this.id)">Track</a></li>
+          <li><a id="Album" onClick ="searchType(this.id)">Album </a></li>
+          <li><a id="Artist" onClick ="searchType(this.id)">Artist</a></li>
+          <li><a id="Genre" onClick ="searchType(this.id)">Genre </a></li>
+        </ul>
+      </div><!-- /btn-group -->
+      <input type="text" class="form-control" onkeydown="search(this)">
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+</div><!-- /.row-->
 
 
-				<!-- Search bar end-->
+        <!-- Search bar end-->
+        
 
-
-				<!-- Table-->
-				<!--
+<!-- Table-->
+<!--
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -210,17 +182,23 @@
           </div>
         -->
 
-				<!-- Table end-->
+<!-- Table end-->
 
-			</div>
-		</div>
-	</div>
+        </div>
+      </div>
+    </div>
 
-	<!-- Bootstrap core JavaScript
+    <!-- Bootstrap core JavaScript
     ================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	
-</body>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+   
+   
+   
+  </body>
 </html>

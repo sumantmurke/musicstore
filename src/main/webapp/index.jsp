@@ -52,13 +52,51 @@ function userLogin(){
 		    }
 		});
 }
+
+
+//div show 
+function showSignupDiv(){
+	alert("inside show div");
+	document.getElementById('div1').style.display = "none";
+	document.getElementById('signupdiv').style.display = "block";
+	
+	alert("after show div");
+}
+
+
+function signup(){
+	var fName= document.getElementById('firstName').value;
+	var lName= document.getElementById('lastName').value;
+	var emailId = document.getElementById('emailId').value;
+	var pass = document.getElementById('pass').value;
+
+	$.ajax({
+		url : "music/Auth/signup",
+	    type: "POST",
+	    data : "email=" + emailId + "&password=" + pass +"&firstname="+fName+ "&lastname"+lName,
+	    datatype : "json",
+	    	success:function(data, textStatus, jqXHR){
+	    		
+		    	window.location.href="userDashBoard.jsp";  
+		    },
+	    error: function(jqXHR, textStatus, errorThrown){
+	    	alert('Could not process request.. ' + errorThrown);
+	    	window.location.href="login.jsp";
+	    }
+	});
+	
+	
+	
+}
+
+
 </script>	
 	
 	
 	
 	
 <body background="musicnote.jpg">
-	<div class="container">
+	<div class="container" id="div1">
 		<div id="loginOptions"
 			style="margin: 180px 0px 0px 50px; float: left;">
 
@@ -83,8 +121,8 @@ function userLogin(){
 				style="background-color: #EBEBE0; -webkit-box-shadow: 3px 0px 5px #888888; -moz-box-shadow: 3px 0px 5px #888888; box-shadow: 3px 0px 5px #888888; padding: 30px; width: 300px;">
 
 				<h2 class="form-signin-heading">Please sign up</h2>
-				<button class="btn btn-lg btn-success btn-block" type="submit">Sign
-					in</button>
+				<button class="btn btn-lg btn-success btn-block" type="submit" onClick="showSignupDiv()">Sign
+					up</button>
 
 			</div>
 
@@ -92,6 +130,78 @@ function userLogin(){
 	</div>
 
 	<!-- /container -->
+	
+	<div id="signupdiv"  style="display:none;">
+		<div style=" margin:180px 450px;">
+			<div
+				style="background-color: #EBEBE0; -webkit-box-shadow: 3px 0px 5px #888888; -moz-box-shadow: 3px 0px 5px #888888; box-shadow: 3px 0px 5px #888888; padding: 30px; width: 300px;">
+
+				<h2 class="form-signin-heading">Please sign up</h2>
+				<!-- table for signup -->
+				
+				<table>
+          <tbody>
+            <tr>
+              <td>
+               <p>First Name</p>
+              </td> 
+              <td>
+         <input type="text" class="input-block-level" placeholder="First Name" id="firstName">
+              </td>
+            </tr>
+               
+            <tr>
+              <td>
+               <p>Last Name</p>
+              </td>
+              <td>
+          <input type="text" class="input-block-level" placeholder="Last Name" id="lastName">
+            </td>
+            </tr>
+
+            <tr>
+               <td>
+               <p>Email Adress</p>
+              </td>
+              <td>
+        <input type="email" class="input-block-level" placeholder="Email address" id="emailId" onBlur="validateEmail()">
+              </td>
+            </tr>
+
+            <tr>
+               <td>
+               <p>Password</p>
+              </td>
+              <td>
+        <input type="password" class="input-block-level" placeholder="Password" title="Password must contain minimum 3 upper case, 2 lower case and 2 special chars" onBlur="passwordCheck()" id="pass">
+              </td>
+              <td>
+                <i class="icon-question-sign"  title="Password must contain minimum 3 upper case, 2 lower case and 2 special chars"></i>
+              </td> 
+              
+            </tr> 
+
+            <tr>
+               <td>
+               <p>Confirm Password</p>
+              </td>
+              <td>
+         <input type="password" class="input-block-level" placeholder="Password must be same" id="cpass" onBlur="PasswordMatch()">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+				
+				
+				<!-- table end -->
+				<button class="btn btn-lg btn-success btn-block" type="submit" onClick="signup()">Sign
+					up</button>
+
+			</div>
+
+		</div>
+	</div>
+	
 </body>
 
 </body>
