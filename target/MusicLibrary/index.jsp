@@ -35,16 +35,8 @@ function userLogin(){
 		    data : "email=" + email + "&password=" + password,
 		    datatype : "json",
 		    	success:function(data, textStatus, jqXHR){
-		    		
-		    		window.localStorage.setItem('userId', data.userId);
-					window.localStorage.setItem('firstName', data.firstName);
-					window.localStorage.setItem('lastName', data.lastName);
-					
-					console.log(window.localStorage.getItem('userId'));
-					console.log(window.localStorage.getItem('firstName'));
-					console.log(window.localStorage.getItem('lastName'));
-					
-			    	window.location.href="userDashBoard.jsp";  
+		    		console.log('success login' + data);
+			    	window.location.href="userDashBoard.jsp";    
 			    },
 		    error: function(jqXHR, textStatus, errorThrown){
 		    	alert('Could not process request.. ' + errorThrown);

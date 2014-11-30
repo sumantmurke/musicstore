@@ -1,6 +1,5 @@
 <html lang="en">
   <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,12 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-	<!-- Jquery -->
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	
     <title>Dashboard Template for Bootstrap</title>
-    
     <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
@@ -21,39 +15,12 @@
 <!-- Optional theme -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-	
-	<!-- Latest compiled and minified JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-	
-	<script type="text/javascript">
-	function getDetails() {
-		var firstName = window.localStorage.getItem('firstName');
-		var lastName = window.localStorage.getItem('lastName');
-		var userId = window.localStorage.getItem('userId');
-		
-		alert(firstName + " " + lastName + " " + userId);
-		
-		
-		$.ajax({
-			url : "music/Auth/getRecc",
-			type : "GET",
-			data : "userId=" + userId,
-			///dataType : "json",
-			success : function(data, textStatus, jqXHR) {
-				alert("success");
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				alert('Could not process request.. ' + errorThrown);
-				window.location.href = "login.jsp";
-			}
-		});
-	}
-	</script>
-	
+
+  
   </head>
 
-  <body onload="getDetails();">
+  <body>
+
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">

@@ -1,45 +1,55 @@
 package com.musicLibrary.Dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+
+import com.musicLibrary.Beans.User;
 
 public class UserDB {
-	private static String connectionString = "jdbc:mysql://127.0.0.1:3306/musicLibrary";
-	private static String dbUsername = "root";
-	private static String dbPassword = "root";
-	
-	public static boolean loginCheck(String username, String password){
-	    String query;
-	    boolean login = false;
-	    System.out.println("inside login check");
+	private static final String GET_USER = "SELECT ID, first_name, last_name  FROM user_details WHERE email= ? AND pwd = ? ";
 
-	    try {
-	        Class.forName("com.mysql.jdbc.Driver").newInstance();
-	        Connection con = DriverManager.getConnection(connectionString, dbUsername, dbPassword);
-	        Statement stmt = (Statement) con.createStatement();
-	        query = "SELECT email, password FROM user_details WHERE email='" + username + "' AND password='" + password + "';";
-	        System.out.println("username"+username+"pwd"+password);
-	        stmt.executeQuery(query);
-	        ResultSet rs = stmt.getResultSet();
-	        login = rs.first(); //rs.first();
-	        con.close();
-	    } catch (InstantiationException e) {
-	        e.printStackTrace();
-	    } catch (IllegalAccessException e) {
-	        e.printStackTrace();
-	    } catch (ClassNotFoundException e) {
-	        e.printStackTrace();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return login;
+	public User loginCheck(String email, String password) {
+
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+
+		int userId = -1;
+		String lastName = null;
+		String firstName = null;
+
+		User user = null;
+
+		Connection connection = null;
+		try {
+			connection = DatabaseConnection.getConnection();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+
+		if (connection != null) {
+			try {
+				statement = connection.prepareStatement(GET_USER);
+				statement.setString(1, email);
+				statement.setString(2, password);
+				resultSet = statement.executeQuery();
+				if (resultSet.next()) {
+					userId = resultSet.getInt("id");
+					firstName = resultSet.getString("first_name");
+					lastName = resultSet.getString("last_name");
+				}
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+				e.printStackTrace();
+			} finally {
+				DatabaseConnection.closeAllDb(connection, resultSet, statement);
+			}
+		}
+		if (userId > -1) {
+			System.out.println("got user");
+			user = new User(userId, firstName, lastName);
+		}
+		return user;
 	}
-	
-	
-	
-
 
 }
