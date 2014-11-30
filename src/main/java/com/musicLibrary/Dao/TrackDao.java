@@ -39,6 +39,7 @@ public class TrackDao {
 						tracks.setAlbumId((null == resultSet.getString("albumId"))? "" : resultSet.getString("albumId"));
 						tracks.setArtistId((null == resultSet.getString("artistId"))? "" : resultSet.getString("artistId"));
 						tracks.setGenreIds((null == resultSet.getString("genreIds"))? "" : resultSet.getString("genreIds"));
+						tracks.setPrice(resultSet.getFloat("price"));
 						tracksList.add(tracks);
 					}
 				}

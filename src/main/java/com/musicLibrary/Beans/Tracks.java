@@ -5,6 +5,22 @@ public class Tracks {
 	String albumId;
 	String artistId;
 	String genreIds;
+	float price;
+	
+	
+	/**
+	 * @return the price
+	 */
+	public float getPrice() {
+		return price;
+	}
+
+	/**
+	 * @param price the price to set
+	 */
+	public void setPrice(float price) {
+		this.price = price;
+	}
 
 	/**
 	 * @return the trackId
