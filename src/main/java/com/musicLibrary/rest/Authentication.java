@@ -1,5 +1,7 @@
 package com.musicLibrary.rest;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -11,8 +13,10 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.musicLibrary.Beans.Tracks;
 import com.musicLibrary.Beans.User;
 import com.musicLibrary.service.AuthenticationProcess;
+import com.musicLibrary.service.TrackProcess;
 
 @Path("/Auth")
 public class Authentication {
@@ -41,6 +45,13 @@ public class Authentication {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getrecommendation (@QueryParam("userId") int userId, @Context HttpServletRequest request) {
 		System.out.println("in the get reccos");
+		TrackProcess trackProcess = new TrackProcess();
+		List<Tracks> tracksList = trackProcess.listTracks();
+		if (tracksList.isEmpty()) {
+			String output = "user invalid";
+			return Response.status(400).entity(output).build();
+		}
+		request.setAttribute("tracks", tracksList);
 		return Response.status(200).entity(new User(1,"amol")).build();
 	}
 }
