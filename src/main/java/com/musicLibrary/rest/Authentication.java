@@ -16,8 +16,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.musicLibrary.Beans.Albums;
+import com.musicLibrary.Beans.Item_purchase;
 import com.musicLibrary.Beans.Tracks;
 import com.musicLibrary.Beans.User;
+import com.musicLibrary.Dao.Cart_purchaseDao;
 import com.musicLibrary.service.AuthenticationProcess;
 import com.musicLibrary.service.ItemsLikedProcess;
 import com.musicLibrary.service.SearchProcess;
@@ -177,10 +179,53 @@ public class Authentication {
 	@Path("/addtocart")
 
 	public Response addtocart(@FormParam("userId") String userId,
+			@FormParam("itemId") String itemId,			
+			@FormParam("itemType") String type,
+			@FormParam("itemPrice") String price,
 			@Context HttpServletRequest request){
 		
-		return null;
+		System.out.println("all the data is : "+itemId+" "+type+" "+price);
+		long UserId = Long.parseLong(userId);
+		String ItemId = itemId;
+		String itemType =type;
+		String Price = price;
+		double amount = Double.parseDouble(Price);
 		
+		Cart_purchaseDao cpd = new Cart_purchaseDao();
+		boolean cart = cpd.insertItemIntoCart(UserId, ItemId, itemType, amount);
+		System.out.println("added to cart "+cart);
+		
+		return Response.status(200).entity(new User(1, "amol")).build();
+		
+	}
+	
+	@GET
+	@Path("/getCart")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getCartDetails(@QueryParam("userId") String userId,
+			@Context HttpServletRequest request){
+		HttpSession session = request.getSession(true);
+		List<Item_purchase> itemsPurchased = new ArrayList<Item_purchase>();
+		
+		String itemspuirchase = null;
+		
+		session.setAttribute("itemspurchase", itemspuirchase);
+		session.setAttribute("itemsPurchasedList", itemsPurchased);
+		
+		long UserId = Long.parseLong(userId);
+		 Cart_purchaseDao cpd = new Cart_purchaseDao();
+		 itemsPurchased = cpd.getCart(UserId);
+		
+		 if(!itemsPurchased.isEmpty()){
+			 session.setAttribute("itemsPurchasedListisThere", itemsPurchased);
+			session.setAttribute("itemspurchase", "true");
+		 }
+		 
+		 for (Item_purchase items : itemsPurchased){
+			 System.out.println(items.getItemId());
+		 }
+		 
+			return Response.status(200).entity(new User(1, "amol")).build();
 	}
 
 }

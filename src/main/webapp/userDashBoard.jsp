@@ -167,25 +167,59 @@ function getLists() {
 	
 	
 	//add to cart
-	function addtocart(){
+	function addtocart(cart){
 		alert("inside add to cart");
 		
-		$.ajax({
+		var ids = cart.split("-");
+		alert("splits " + ids[0] +" " + ids[1]+" "+ids[2]);
+		//var rate = document.getElementById(ids[2]).value;
+		//alert(rate);
+		
+		var userId = window.localStorage.getItem('userId');
+		
+	 	$.ajax({
 			url : "music/Auth/addtocart",
 			type : "POST",
-			data : "userId=" + userId + "&itemId=" + ids[0] + "&rating=" + rate + "&itemType=" + ids[1],
+			data : "userId=" + userId + "&itemId=" + ids[0] + "&itemType=" + ids[1] +"&itemPrice="+ ids[2],
 			//dataType : "json",
 			success : function(data, textStatus, jqXHR) {
-				alert("success" + data);
-				//window.location.href = "userDashBoard.jsp";
+				alert("Item added to cart succesfully");
+				//window.location.href = "cart.jsp";
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
 				alert('Could not process request.. ' + errorThrown);
 				window.location.href = "userDashBoard.jsp";
 			}
-		});
+		}); 
 		
 	}
+	
+	
+	//get cart
+function getCart(){
+		
+var userId = window.localStorage.getItem('userId');
+	
+	alert( userId);
+	
+	
+	$.ajax({
+		url : "music/Auth/getCart",
+		type : "GET",
+		data : "userId=" + userId,
+		dataType : "json",
+		success : function(data, textStatus, jqXHR) {
+			alert("success");
+			window.location.href = "cart.jsp";
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			alert('Could not process request.. ' + errorThrown);
+			window.location.href = "userDashBoard.jsp";
+		}
+	});
+		
+	}	
+	
 	
 	</script>
 
@@ -224,7 +258,7 @@ function getLists() {
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#">Find Songs <span class="sr-only">(current)</span></a></li>
             <li><a href="Recommendation.jsp">Recommendations</a></li>
-            <li><a href="cart.jsp">Cart</a></li>
+            <li><a href="#" onClick="getCart();" >Cart</a></li>
             <li><a href="#"  onclick="getLists();">History</a></li>
           </ul>
           
@@ -295,7 +329,7 @@ function getLists() {
 							<td><button
 									class="btn btn-success" id="${item.getTrackId()}-${item.getType()}" type="button" onclick="rates(this.id)">Rate</button></td>
 									
-							<td><button class="btn btn-primary" type="button" onClick="addtocart();">Add to Cart</button></td>
+							<td><button class="btn btn-primary" type="button" id="${item.getTrackId()}-${item.getType()}-${item.getPrice()}" onClick="addtocart(this.id);">Add to Cart</button></td>
 							
 							
 						
