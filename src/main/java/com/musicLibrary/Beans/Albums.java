@@ -5,6 +5,15 @@ public class Albums {
 	String artistId;
 	String genreIds;
 	float price;
+	String type;
+	
+	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	/**
 	 * @return the albumId
 	 */

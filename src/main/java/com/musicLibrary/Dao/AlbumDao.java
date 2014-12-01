@@ -37,6 +37,7 @@ public class AlbumDao {
 						album.setArtistId((null == resultSet.getString("artistId"))? "" : resultSet.getString("artistId"));
 						album.setGenreIds((null == resultSet.getString("genreIds"))? "" : resultSet.getString("genreIds"));
 						album.setPrice(resultSet.getFloat("price"));
+						album.setType("album");
 						albumList.add(album);
 					}
 				}
