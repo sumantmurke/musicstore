@@ -214,9 +214,9 @@ CREATE TABLE `musicLibrary`.`transaction` (
  
   
 CREATE TABLE `musicLibrary`.`artists` (
-  `idartists` VARCHAR(20) NOT NULL);
+  `artistId` VARCHAR(20) NOT NULL);
   
 CREATE TABLE `musicLibrary`.`genre` (
-  `idgenre` VARCHAR(20) NOT NULL);
+  `genreId` VARCHAR(20) NOT NULL);
   
   
