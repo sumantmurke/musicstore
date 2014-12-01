@@ -16,8 +16,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.musicLibrary.Beans.Albums;
+import com.musicLibrary.Beans.Artists;
+import com.musicLibrary.Beans.Genre;
+import com.musicLibrary.Beans.Item_purchase;
 import com.musicLibrary.Beans.Tracks;
 import com.musicLibrary.Beans.User;
+import com.musicLibrary.Dao.Cart_purchaseDao;
+import com.musicLibrary.Dao.UserDB;
 import com.musicLibrary.service.AuthenticationProcess;
 import com.musicLibrary.service.ItemsLikedProcess;
 import com.musicLibrary.service.SearchProcess;
@@ -46,6 +51,23 @@ public class Authentication {
 		return Response.status(400).entity(output).build();
 	}
 
+	@POST
+	@Path("/signup")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response userSignup(@FormParam("email") String email,
+			@FormParam("password") String password,
+			@FormParam("firstname") String firstname,
+			@FormParam("lastname") String lastname){
+		
+		System.out.println(" "+firstname+lastname+ email+ password);
+		
+		UserDB udb = new UserDB();
+		boolean adduser =udb.addUser(firstname, lastname, email, password);
+		System.out.println("user added "+adduser);
+		return null;
+	}
+	
+	
 	@GET
 	@Path("/getRecc")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -75,16 +97,33 @@ public class Authentication {
 
 		List<Tracks> tracksList = new ArrayList<Tracks>();
 		List<Albums> albumList = new ArrayList<Albums>();
+		List<Artists> artistList = new ArrayList<Artists>();
+		List<Genre> GenreList = new ArrayList<Genre>();
+		
 		
 		String isTrackFound = null;
 		String isAlbumFound = null;
+		String isArtistFound = null;
+		String iskedGenreFound = null;
+		
+		
 		
 		session.setAttribute("searchedTracks", tracksList);
 		session.setAttribute("searchedAlbums", albumList);
+		session.setAttribute("searchedArtist", artistList);
+		session.setAttribute("searchedGenre", GenreList);
+				
+		
+		
 		
 		session.setAttribute("isTrackFound", isTrackFound);
 		session.setAttribute("isAlbumFound", isAlbumFound);
+		session.setAttribute("isArtistFound", isArtistFound);
+		session.setAttribute("isGenreFound", iskedGenreFound);
+				
 		
+		
+	//track	
 		if (itemType.trim().toLowerCase().equals("track")) {
 			tracksList = searchProcess.serachtracks(itemId);
 			session.setAttribute("searchedTracks", tracksList);
@@ -97,6 +136,8 @@ public class Authentication {
 					+ " " + track.getPrice());
 		}
 
+		
+	//album	
 		if (itemType.trim().toLowerCase().equals("album")) {
 			albumList = searchProcess.searchAlbums(itemId);
 			session.setAttribute("searchedAlbums", albumList);
@@ -107,6 +148,31 @@ public class Authentication {
 		for (Albums album : albumList) {
 			System.out.println(album.getAlbumId() + " " + album.getPrice());
 		}
+		
+	//Artist
+		if (itemType.trim().toLowerCase().equals("artist")){
+			artistList = searchProcess.searchArtist(itemId);
+			session.setAttribute("searchedArtist", artistList);
+			session.setAttribute("isArtistFound", "true");
+		}
+		for (Artists artist : artistList) {
+	
+			System.out.println(artist.getArtistId() + " " + artist.getRating());
+		}
+		
+	//Genre
+		if (itemType.trim().toLowerCase().equals("genre")){
+			GenreList = searchProcess.searchGenre(itemId);
+			session.setAttribute("searchedGenre", GenreList);
+			session.setAttribute("isGenreFound", "true");
+			
+		}
+		for (Genre genre : GenreList) {
+			System.out.println(genre.getGenreId() + " " + genre.getRating());
+		}
+		
+		
+		
 		System.out.println("test git");
 		return Response.status(200).entity(new User(1, "amol")).build();
 	}
@@ -142,16 +208,26 @@ public class Authentication {
 
 		List<Tracks> tracksList = new ArrayList<Tracks>();
 		List<Albums> albumList = new ArrayList<Albums>();
-
+		//List<Artists> artistList = new ArrayList<Artists>();
+		//List<Genre> GenreList = new ArrayList<Genre>();
+		
 		String likedTrackFound = null;
 		String likedAlbumFound = null;
+		//String likedArtistFound = null;
+		//String likedGenreFound = null;
 		
 		session.setAttribute("searchedTracks", tracksList);
 		session.setAttribute("searchedAlbums", albumList);
+		//session.setAttribute("searchedArtist", artistList);
+		//session.setAttribute("searchedGenre", GenreList);
+		
 		
 		session.setAttribute("likedTrackFound", likedTrackFound);
 		session.setAttribute("likedAlbumFound", likedAlbumFound);
+		//session.setAttribute("likedArtistFound", likedArtistFound);
+		//session.setAttribute("likedGenreFound", likedGenreFound);
 		
+		//for track
 		tracksList = itemsLikedProcess.searchLikedTracks(userId);
 		if (!tracksList.isEmpty()) {
 		session.setAttribute("likedTracks", tracksList);
@@ -160,6 +236,8 @@ public class Authentication {
 		for (Tracks track : tracksList) {
 			System.out.println(track.getTrackId() + " " + track.getRating() + " " + track.getType());
 		}
+		
+		//for album
 		albumList = itemsLikedProcess.searchLikedAlbums(userId);
 		if (!tracksList.isEmpty()) {
 			session.setAttribute("likedAlbums", albumList);
@@ -170,6 +248,72 @@ public class Authentication {
 		for (Albums album : albumList) {
 			System.out.println(album.getAlbumId() + " " + album.getRating() + " " + album.getType());
 		}
+		
+		//for artist
+		
+		
+		
+		
+		
+		//for genre
+		
+		
+		
+		
 		return Response.status(200).entity(new User(1, "amol")).build();
 	}
+	
+	@POST
+	@Path("/addtocart")
+
+	public Response addtocart(@FormParam("userId") String userId,
+			@FormParam("itemId") String itemId,			
+			@FormParam("itemType") String type,
+			@FormParam("itemPrice") String price,
+			@Context HttpServletRequest request){
+		
+		System.out.println("all the data is : "+itemId+" "+type+" "+price);
+		long UserId = Long.parseLong(userId);
+		String ItemId = itemId;
+		String itemType =type;
+		String Price = price;
+		double amount = Double.parseDouble(Price);
+		
+		Cart_purchaseDao cpd = new Cart_purchaseDao();
+		boolean cart = cpd.insertItemIntoCart(UserId, ItemId, itemType, amount);
+		System.out.println("added to cart "+cart);
+		
+		return Response.status(200).entity(new User(1, "amol")).build();
+		
+	}
+	
+	@GET
+	@Path("/getCart")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getCartDetails(@QueryParam("userId") String userId,
+			@Context HttpServletRequest request){
+		HttpSession session = request.getSession(true);
+		List<Item_purchase> itemsPurchased = new ArrayList<Item_purchase>();
+		
+		String itemspuirchase = null;
+		
+		session.setAttribute("itemspurchase", itemspuirchase);
+		session.setAttribute("itemsPurchasedList", itemsPurchased);
+		
+		long UserId = Long.parseLong(userId);
+		 Cart_purchaseDao cpd = new Cart_purchaseDao();
+		 itemsPurchased = cpd.getCart(UserId);
+		
+		 if(!itemsPurchased.isEmpty()){
+			 session.setAttribute("itemsPurchasedListisThere", itemsPurchased);
+			session.setAttribute("itemspurchase", "true");
+		 }
+		 
+		 for (Item_purchase items : itemsPurchased){
+			 System.out.println(items.getItemId());
+		 }
+		 
+			return Response.status(200).entity(new User(1, "amol")).build();
+	}
+
 }

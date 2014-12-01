@@ -3,7 +3,7 @@ package com.musicLibrary.Beans;
 public class Item_purchase {
 	String itemId;
 	String itemType;
-	float price;
+	double price;
 	public String getItemId() {
 		return itemId;
 	}
@@ -16,10 +16,10 @@ public class Item_purchase {
 	public void setItemType(String itemType) {
 		this.itemType = itemType;
 	}
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
-	public void setPrice(float price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 	

@@ -73,7 +73,7 @@ function signup(){
 	$.ajax({
 		url : "music/Auth/signup",
 	    type: "POST",
-	    data : "email=" + emailId + "&password=" + pass +"&firstname="+fName+ "&lastname"+lName,
+	    data : "email=" + emailId + "&password=" + pass +"&firstname="+fName+ "&lastname="+lName,
 	    datatype : "json",
 	    	success:function(data, textStatus, jqXHR){
 	    		
@@ -81,8 +81,8 @@ function signup(){
 		    },
 	    error: function(jqXHR, textStatus, errorThrown){
 	    	alert('Could not process request.. ' + errorThrown);
-	    	window.location.href="login.jsp";
-	    }
+	    	window.location.href="index.jsp";
+	    }	
 	});
 	
 	
@@ -161,7 +161,7 @@ function signup(){
 
             <tr>
                <td>
-               <p>Email Adress</p>
+               <p>Email Address</p>
               </td>
               <td>
         <input type="email" class="input-block-level" placeholder="Email address" id="emailId" onBlur="validateEmail()">

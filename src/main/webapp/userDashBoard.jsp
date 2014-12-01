@@ -166,6 +166,118 @@ function getLists() {
 	}
 	
 	
+	//rate artist
+function rateArtist(artist){
+	alert("inside rates" + artist);
+	var ids = artist.split("-");
+	alert("splits " + ids[0] +" " + ids[1]);
+	var rate = document.getElementById(ids[0]).value;
+	alert(rate);
+	var userId = window.localStorage.getItem('userId');
+	
+/* 	$.ajax({
+		url : "music/Auth/insertLikedItems",
+		type : "POST",
+		data : "userId=" + userId + "&itemId=" + ids[0] + "&rating=" + rate + "&itemType=" + ids[1],
+		//dataType : "json",
+		success : function(data, textStatus, jqXHR) {
+			alert("success" + data);
+			//window.location.href = "userDashBoard.jsp";
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			alert('Could not process request.. ' + errorThrown);
+			window.location.href = "userDashBoard.jsp";
+		}
+	}); 
+	 */
+	}	
+	
+//rate genre
+function rateGenre(genre){
+	
+	alert("inside rates" + genre);
+	var ids = genre.split("-");
+	alert("splits " + ids[0] +" " + ids[1]);
+	var rate = document.getElementById(ids[0]).value;
+	alert(rate);
+	var userId = window.localStorage.getItem('userId');
+	
+/* 	$.ajax({
+		url : "music/Auth/insertLikedItems",
+		type : "POST",
+		data : "userId=" + userId + "&itemId=" + ids[0] + "&rating=" + rate + "&itemType=" + ids[1],
+		//dataType : "json",
+		success : function(data, textStatus, jqXHR) {
+			alert("success" + data);
+			//window.location.href = "userDashBoard.jsp";
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			alert('Could not process request.. ' + errorThrown);
+			window.location.href = "userDashBoard.jsp";
+		}
+	}); 
+	 */
+	
+}
+	
+	
+	
+	
+	//add to cart
+	function addtocart(cart){
+		alert("inside add to cart");
+		
+		var ids = cart.split("-");
+		alert("splits " + ids[0] +" " + ids[1]+" "+ids[2]);
+		//var rate = document.getElementById(ids[2]).value;
+		//alert(rate);
+		
+		var userId = window.localStorage.getItem('userId');
+		
+	 	$.ajax({
+			url : "music/Auth/addtocart",
+			type : "POST",
+			data : "userId=" + userId + "&itemId=" + ids[0] + "&itemType=" + ids[1] +"&itemPrice="+ ids[2],
+			//dataType : "json",
+			success : function(data, textStatus, jqXHR) {
+				alert("Item added to cart succesfully");
+				//window.location.href = "cart.jsp";
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				alert('Could not process request.. ' + errorThrown);
+				window.location.href = "userDashBoard.jsp";
+			}
+		}); 
+		
+	}
+	
+	
+	//get cart
+function getCart(){
+		
+var userId = window.localStorage.getItem('userId');
+	
+	alert( userId);
+	
+	
+	$.ajax({
+		url : "music/Auth/getCart",
+		type : "GET",
+		data : "userId=" + userId,
+		dataType : "json",
+		success : function(data, textStatus, jqXHR) {
+			alert("success");
+			window.location.href = "cart.jsp";
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			alert('Could not process request.. ' + errorThrown);
+			window.location.href = "userDashBoard.jsp";
+		}
+	});
+		
+	}	
+	
+	
 	</script>
 
 </head>
@@ -203,7 +315,7 @@ function getLists() {
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#">Find Songs <span class="sr-only">(current)</span></a></li>
             <li><a href="Recommendation.jsp">Recommendations</a></li>
-            <li><a href="#">Cart</a></li>
+            <li><a href="#" onClick="getCart();" >Cart</a></li>
             <li><a href="#"  onclick="getLists();">History</a></li>
           </ul>
           
@@ -237,7 +349,7 @@ function getLists() {
         <!-- Search bar end-->
         
 
-<!-- Search Table-->
+<!-- Search Table for track-->
 <% if (session.getAttribute("isTrackFound") != null) { %>
 <div id="searchtable" class="table-responsive" style="margin-top:20px; ">
             
@@ -274,7 +386,9 @@ function getLists() {
 							<td><button
 									class="btn btn-success" id="${item.getTrackId()}-${item.getType()}" type="button" onclick="rates(this.id)">Rate</button></td>
 									
-						
+							<td><button class="btn btn-primary" type="button" id="${item.getTrackId()}-${item.getType()}-${item.getPrice()}" onClick="addtocart(this.id);">Add to Cart</button></td>
+							
+							
 						
 							
 							
@@ -286,6 +400,8 @@ function getLists() {
           
           </div>
 <%  } %>
+
+<!-- for album -->
 
 <% if (session.getAttribute("isAlbumFound") != null) { %>
 
@@ -331,6 +447,77 @@ function getLists() {
           </div>
 
 <%  } %>
+
+
+<!-- for artist -->
+
+<% if (session.getAttribute("isArtistFound") != null) { %>
+
+<div id="albumtable"class="table-responsive" style="margin-top:20px;">
+           
+              <table id="example" class="table table-hover">
+					<thead>
+						<tr>
+							<th>Artist Id</th>
+							<th>Rating</th>
+						</tr>
+					</thead>
+					<tbody>
+					<c:forEach var="item" items="${searchedArtist}" >
+					
+						 <tr>
+							
+							<td id="artistid">${item.getArtistId()}</td>
+							<td><input id="${item.getArtistId()}"  type="text" placeholder="0-99" maxlength="2" size="2"></td>
+							
+							<td><button
+									class="btn btn-success" type="button" id="${item.getArtistId()}-${item.getType()}" onclick="rateArtist(this.id)">Rate</button></td>
+										
+						</tr> 
+						</c:forEach>
+					</tbody>
+					 
+				</table>
+          
+          </div>
+
+<%  } %>
+
+
+<!-- for Genre -->
+<% if (session.getAttribute("isGenreFound") != null) { %>
+
+<div id="albumtable"class="table-responsive" style="margin-top:20px;">
+           
+              <table id="example" class="table table-hover">
+					<thead>
+						<tr>
+							<th>Genre Id</th>
+							<th>Rating</th>
+						</tr>
+					</thead>
+					<tbody>
+					<c:forEach var="item" items="${searchedGenre}" >
+					
+						 <tr>
+							
+							<td id="artistid">${item.getGenreId()}</td>
+							<td><input id="${item.getGenreId()}"  type="text" placeholder="0-99" maxlength="2" size="2"></td>
+							
+							<td><button
+									class="btn btn-success" type="button" id="${item.getGenreId()}-${item.getType()}" onclick="rateGenre(this.id)">Rate</button></td>
+										
+						</tr> 
+						</c:forEach>
+					</tbody>
+					 
+				</table>
+          
+          </div>
+
+<%  } %>
+
+
 
 <!--Search Table end-->
 
