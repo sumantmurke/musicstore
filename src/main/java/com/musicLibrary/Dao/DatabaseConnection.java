@@ -9,9 +9,9 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
 
-	private static String connectionString = "jdbc:mysql://127.0.0.1:3306/musicLibrary";
+	private static String connectionString = "jdbc:mysql://musiclibrarydb.cshvktwme4fm.us-west-1.rds.amazonaws.com:3306/musiclib";
 	private static String dbUsername = "root";
-	private static String dbPassword = "Janataraja-384";
+	private static String dbPassword = "akshay12";
 
 	public static Connection getConnection() throws Exception {
 		Connection connection = null;

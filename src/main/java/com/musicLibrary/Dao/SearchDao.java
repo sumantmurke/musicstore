@@ -16,9 +16,11 @@ public class SearchDao {
 
 	private static final String SEARCH_TRACKS = "select * from tracks where trackId like ? ";
 	private static final String SEARCH_ALBUMS = "select * from albums where albumId like ? ";
-	private static final String SEARCH_ARTIST = "select * from artists where artistId like ? ";
-	private static final String SEARCH_GENRE = "select * from genre where genreId like ? ";
-
+	//private static final String SEARCH_ARTIST = "select * from artists where artistId like ? ";
+	private static final String SEARCH_ARTIST = "SELECT * FROM musiclib.artists where `artists`.` artistId` like ? ";
+	//private static final String SEARCH_GENRE = "select * from genre where genreId like ? ";
+	private static final String SEARCH_GENRE = "select * from musiclib.genre where `genre`.` genreId`  like ? ";
+	
 	public List<Tracks> searchtracks(String trackId) {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
@@ -113,7 +115,7 @@ public class SearchDao {
 					resultSet = statement.executeQuery();
 					while (resultSet.next()) {
 						artist = new Artists();
-						artist.setArtistId((null == resultSet.getString("artistId"))? "" : resultSet.getString("artistId"));
+						artist.setArtistId((null == resultSet.getString(1))? "None" : resultSet.getString(1));
 						artist.setType("artist");
 						artistList.add(artist);
 					}
@@ -147,7 +149,7 @@ public class SearchDao {
 					resultSet = statement.executeQuery();
 					while (resultSet.next()) {
 						genre = new Genre();
-						genre.setGenreId((null == resultSet.getString("genreId"))? "" : resultSet.getString("genreId"));
+						genre.setGenreId((null == resultSet.getString(1))? "None" : resultSet.getString(1));
 						genre.setType("genre");
 						genreList.add(genre);
 					}
