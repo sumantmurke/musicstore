@@ -13,11 +13,11 @@ import com.musicLibrary.Beans.Genre;
 import com.musicLibrary.Beans.Tracks;
 
 public class ItemsLikedDao {
-	private static final String INSERT_ITEMS = "insert into itemsLiked (userid, itemid, rating, type) values (?, ?, ?, ?)";
-	private static final String GET_TRACKS_RATED = "select * from itemsLiked where userid = ? and type='track'";
-	private static final String GET_ALBUMS_RATED = "select * from itemsLiked where userid = ? and type='album'";
-	private static final String GET_ARTIST_RATED = "select * from itemsLiked where userid = ? and type='artist'";
-	private static final String GET_GENRE_RATED = "select * from itemsLiked where userid = ? and type='genre'";
+	private static final String INSERT_ITEMS = "insert into itemLiked (userid, itemid, rating, type) values (?, ?, ?, ?)";
+	private static final String GET_TRACKS_RATED = "select * from itemLiked where userid = ? and type='track'";
+	private static final String GET_ALBUMS_RATED = "select * from itemLiked where userid = ? and type='album'";
+	private static final String GET_ARTIST_RATED = "select * from itemLiked where userid = ? and type='artist'";
+	private static final String GET_GENRE_RATED = "select * from itemLiked where userid = ? and type='genre'";
 
 	public List<Artists> searchLikedArtist(String userId) {
 		PreparedStatement statement = null;
