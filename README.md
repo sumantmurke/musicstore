@@ -165,7 +165,7 @@ insert into albums (albumId, artistId, genreIds) values ('11', '1', '1,56,23');
 create table itemsLiked(
 
 
-id bigint(20),
+id bigint(20)  not null  primary key auto_increment,,
 
 
 userid bigint(20),
