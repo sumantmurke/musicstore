@@ -28,15 +28,15 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Dashboard</a></li>
+            <li><a href="userDashBoard.jsp">Dashboard</a></li>
             <li><a href="#">Settings</a></li>
             <li><a href="#">Profile</a></li>
             <li><a href="#"></a></li>
           </ul>
-         <!--  <form class="navbar-form navbar-right">
+         <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
           </form>
- -->        </div>
+         </div>
       </div>
     </nav> 
     

@@ -11,7 +11,7 @@ public class DatabaseConnection {
 
 	private static String connectionString = "jdbc:mysql://127.0.0.1:3306/musicLibrary";
 	private static String dbUsername = "root";
-	private static String dbPassword = "Janataraja-384";
+	private static String dbPassword = "root";
 
 	public static Connection getConnection() throws Exception {
 		Connection connection = null;
