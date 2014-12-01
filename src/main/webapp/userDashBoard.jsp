@@ -277,7 +277,89 @@ var userId = window.localStorage.getItem('userId');
 		
 	}	
 	
+function getReccomendation() {
+	alert("got into it");
+	var userId = window.localStorage.getItem('userId');
+	var trackUrl = "http://54.67.115.194:8080/tracks/"+userId;
+	var albumUrl = "http://54.67.115.194:8080/albums/"+userId;
+	var artistUrl = "http://54.67.115.194:8080/artists/"+userId;
+	var genreUrl = "http://54.67.115.194:8080/genres/"+userId;
 	
+	var trackReccomended;
+	var albumReccomended;
+	var artistReccomended;
+	var genreReccomended;
+	
+	$.ajax({
+		url : trackUrl,
+		type : "GET",
+		success : function(data, textStatus, jqXHR) {
+			/* alert(data.tracks); */
+			trackReccomended = data.tracks;
+			window.localStorage.setItem("trackReccomended", trackReccomended);
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			alert('Could not process request.. ' + errorThrown);
+		}
+	});
+	
+	$.ajax({
+		url : albumUrl,
+		type : "GET",
+		success : function(data, textStatus, jqXHR) {
+			//alert(data.albums);
+			albumReccomended = data.albums;
+			window.localStorage.setItem("albumReccomended", albumReccomended);
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			alert('Could not process request.. ' + errorThrown);
+		}
+	});
+	
+	$.ajax({
+		url : artistUrl,
+		type : "GET",
+		success : function(data, textStatus, jqXHR) {
+			//alert(data.artists);
+			artistReccomended = data.artists;
+			window.localStorage.setItem("artistReccomended", artistReccomended);
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			alert('Could not process request.. ' + errorThrown);
+		}
+	});
+	
+	$.ajax({
+		url : genreUrl,
+		type : "GET",
+		success : function(data, textStatus, jqXHR) {
+			//alert(data.genres);
+			genreReccomended = data.genres;
+			window.localStorage.setItem("genreReccomended", genreReccomended);
+			window.location.href = "Recommendation.jsp";
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			alert('Could not process request.. ' + errorThrown);
+		}
+	});
+	
+	
+	/* $.ajax({
+		url : "music/Auth/reccomended",
+		type : "POST",
+		data : "userId=" + userId + "&tracksRecc=" + trackReccomended + "&albumRecc=" + albumReccomended + "&artistRecc=" + artistReccomended + "&genreRecc=" + genreReccomended,
+		success : function(data, textStatus, jqXHR) {
+			alert("success" + data);
+			//window.location.href = "userDashBoard.jsp";
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			alert('Could not process request.. ' + errorThrown);
+			window.location.href = "userDashBoard.jsp";
+		}
+	}); */
+
+}
+
 	</script>
 
 </head>
@@ -314,7 +396,7 @@ var userId = window.localStorage.getItem('userId');
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#">Find Songs <span class="sr-only">(current)</span></a></li>
-            <li><a href="Recommendation.jsp">Recommendations</a></li>
+             <li><a href="Recommendation.jsp" onclick="getReccomendation();">Recommendations</a></li>
             <li><a href="#" onClick="getCart();" >Cart</a></li>
             <li><a href="#"  onclick="getLists();">History</a></li>
           </ul>

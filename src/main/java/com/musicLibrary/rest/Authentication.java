@@ -315,5 +315,137 @@ public class Authentication {
 		 
 			return Response.status(200).entity(new User(1, "amol")).build();
 	}
-
+	
+	@GET
+	@Path("/reccomended")
+	public Response processReccomedation(@QueryParam("userId") String userId,
+			@QueryParam("tracksRecc") String tracksRecc,
+			@QueryParam("albumRecc") String albumRecc,
+			@QueryParam("artistRecc") String artistRecc,
+			@QueryParam("genreRecc") String genreRecc,
+			@Context HttpServletRequest request) {
+		System.out.println();
+		System.out.println("reccos");
+		System.out.println( tracksRecc);
+		System.out.println(albumRecc);
+		System.out.println(artistRecc);
+		System.out.println(genreRecc);
+		
+		HttpSession httpSession = request.getSession(true);
+		
+		Tracks track = null;
+		Albums album = null;
+		Artists artist = null;
+		Genre genre = null;
+		
+		List<Albums> reccomAlbums = new ArrayList<Albums>();
+		List<Tracks> reccomTracks = new ArrayList<Tracks>();
+		List<Artists> reccomArtists = new ArrayList<Artists>();
+		List<Genre> reccomGenres = new ArrayList<Genre>();
+		
+		String isReccTracks = null;
+		String isReccAlbums = null;
+		String isReccArtist = null;
+		String isReccGenres = null;
+		
+		httpSession.setAttribute("reccomAlbums", reccomAlbums);
+		httpSession.setAttribute("reccomTracks", reccomTracks);
+		httpSession.setAttribute("reccomArtists", reccomArtists);
+		httpSession.setAttribute("reccomGenres", reccomGenres);
+		
+		httpSession.setAttribute("isReccTracks", isReccTracks);
+		httpSession.setAttribute("isReccAlbums", isReccAlbums);
+		httpSession.setAttribute("isReccArtist", isReccArtist);
+		httpSession.setAttribute("isReccGenres", isReccGenres);
+		
+		//tracks
+		if( (!("null").equals(tracksRecc))  && (!tracksRecc.equals(""))) {
+			tracksRecc = tracksRecc.replace('[', ' ');
+			tracksRecc = tracksRecc.replace(']', ' ');
+			tracksRecc = tracksRecc.trim();
+			String[] tracksSplit = tracksRecc.split(",");
+			String[] recc = new String[2];
+			for (String recTrack : tracksSplit) {
+				recc = recTrack.split(":");
+				track = new Tracks();
+				track.setTrackId(recc[0]);
+				track.setRating(recc[1]);
+				reccomTracks.add(track);
+			}
+			
+			httpSession.setAttribute("reccomTracks", reccomTracks);
+			httpSession.setAttribute("isReccTracks", "true");
+		}
+		for (Tracks tracked : reccomTracks) {
+			System.out.println(tracked.getTrackId() + " " + tracked.getRating());
+		}
+		
+		//albums
+		if( (!("null").equals(albumRecc))   && (!albumRecc.equals(""))) {
+			albumRecc = albumRecc.replace('[', ' ');
+			albumRecc = albumRecc.replace(']', ' ');
+			albumRecc = albumRecc.trim();
+			String[] albumsSplit = albumRecc.split(",");
+			String[] recc = new String[2];
+			for (String recAlbum : albumsSplit) {
+				recc = recAlbum.split(":");
+				album = new Albums();
+				album.setAlbumId(recc[0]);
+				album.setRating(recc[1]);
+				reccomAlbums.add(album);
+			}
+			
+			httpSession.setAttribute("reccomAlbums", reccomAlbums);
+			httpSession.setAttribute("isReccAlbums", "true");
+		}
+		for (Albums tracked : reccomAlbums) {
+			System.out.println(tracked.getAlbumId() + " " + tracked.getRating());
+		}
+		
+		//Artist
+		if( (!("null").equals(artistRecc))  && (!artistRecc.equals(""))) {
+			artistRecc = artistRecc.replace('[', ' ');
+			artistRecc = artistRecc.replace(']', ' ');
+			artistRecc = artistRecc.trim();
+			String[] artistSplit = tracksRecc.split(",");
+			String[] recc = new String[2];
+			for (String recTrack : artistSplit) {
+				recc = recTrack.split(":");
+				artist = new Artists();
+				artist.setArtistId(recc[0]);
+				artist.setRating(recc[1]);
+				reccomArtists.add(artist);
+			}
+			
+			httpSession.setAttribute("reccomArtists", reccomArtists);
+			httpSession.setAttribute("isReccArtist", "true");
+		}
+		for (Artists tracked : reccomArtists) {
+			System.out.println(tracked.getArtistId() + " " + tracked.getRating());
+		}
+		
+		//genre
+		if( (!("null").equals(genreRecc))  && (!genreRecc.equals(""))) {
+			genreRecc = genreRecc.replace('[', ' ');
+			genreRecc = genreRecc.replace(']', ' ');
+			genreRecc = genreRecc.trim();
+			String[] genreSplit = genreRecc.split(",");
+			String[] recc = new String[2];
+			for (String recTrack : genreSplit) {
+				recc = recTrack.split(":");
+				genre = new Genre();
+				genre.setGenreId(recc[0]);
+				genre.setRating(recc[1]);
+				reccomGenres.add(genre);
+			}
+			
+			httpSession.setAttribute("reccomGenres", reccomGenres);
+			httpSession.setAttribute("isReccGenres", "true");
+		}
+		for (Tracks tracked : reccomTracks) {
+			System.out.println(tracked.getTrackId() + " " + tracked.getRating());
+		}
+		
+		return Response.status(200).entity("success").build();
+	}
 }
