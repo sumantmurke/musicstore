@@ -211,7 +211,12 @@ CREATE TABLE `musicLibrary`.`transaction` (
   PRIMARY KEY (`idtransaction`));
   
   
-  CREATE TABLE `musicLibrary`.`artists` (
-  `idartists` INT NOT NULL);
+ 
+  
+CREATE TABLE `musicLibrary`.`artists` (
+  `idartists` VARCHAR(20) NOT NULL);
+  
+  CREATE TABLE `musicLibrary`.`genre` (
+);
   
   
