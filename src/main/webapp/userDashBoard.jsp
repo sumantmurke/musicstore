@@ -23,10 +23,31 @@
 
 <script type="text/javascript">
 
+
+function logout(){
+	alert("inside logout");
+	var userId = window.localStorage.getItem('userId');
+	$.ajax({
+		url : "music/Auth/logout",
+		type : "GET",
+	
+		success : function(data, textStatus, jqXHR) {
+			//alert("success");
+			window.location.href = "index.jsp";
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			alert('Could not process request.. ' + errorThrown);
+			alert("problem")
+			//window.location.href = "index.jsp";
+		}
+	});
+	
+}
+
 function getLists() {
 	var userId = window.localStorage.getItem('userId');
 	
-	alert( userId);
+	//alert( userId);
 	
 	
 	$.ajax({
@@ -35,7 +56,7 @@ function getLists() {
 		data : "userId=" + userId,
 		dataType : "json",
 		success : function(data, textStatus, jqXHR) {
-			alert("success");
+			//alert("success");
 			window.location.href = "History.jsp";
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
@@ -50,7 +71,7 @@ function getLists() {
 		var lastName = window.localStorage.getItem('lastName');
 		var userId = window.localStorage.getItem('userId');
 		
-		alert(firstName + " " + lastName + " " + userId);
+		//alert(firstName + " " + lastName + " " + userId);
 		
 		
 		$.ajax({
@@ -59,7 +80,7 @@ function getLists() {
 			data : "userId=" + userId,
 			///dataType : "json",
 			success : function(data, textStatus, jqXHR) {
-				alert("success");
+				//alert("success");
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
 				alert('Could not process request.. ' + errorThrown);
@@ -73,10 +94,10 @@ function getLists() {
 	 //funaction for search type   
 	  function searchType(Type){
 	    var type = Type;
-	    alert(type);
+	//    alert(type);
 
 	 document.getElementById("searchButton").innerHTML = type;
-	alert(element);
+	//alert(element);
 
 	  
 
@@ -86,10 +107,10 @@ function getLists() {
 	//function for search on search bar after pressing enter
 	  function search(ele) {
 	    if(event.keyCode == 13) {
-	        alert('inside search after enter');
-	        alert(ele.value);  
-	        alert(document.getElementById("searchButton").innerHTML); 
-	        alert(ele.value + " " + document.getElementById("searchButton").innerHTML);
+	      //  alert('inside search after enter');
+	      //  alert(ele.value);  
+	      //  alert(document.getElementById("searchButton").innerHTML); 
+	     //   alert(ele.value + " " + document.getElementById("searchButton").innerHTML);
 	    	
 	        var itemId = ele.value;
 	        var itemType = document.getElementById("searchButton").innerHTML;
@@ -117,11 +138,11 @@ function getLists() {
 
 
 	function rates(track){
-		alert("inside rates" + track);
+	//	alert("inside rates" + track);
 		var ids = track.split("-");
-		alert("splits " + ids[0] +" " + ids[1]);
+	//	alert("splits " + ids[0] +" " + ids[1]);
 		var rate = document.getElementById(ids[0]).value;
-		alert(rate);
+	//	alert(rate);
 		//insertLikedItems
 		var userId = window.localStorage.getItem('userId');
 		$.ajax({
@@ -142,11 +163,11 @@ function getLists() {
 	
 	//rate album
 	function rateAlbum(album){
-		alert("inside rates" + album);
+	//	alert("inside rates" + album);
 		var ids = album.split("-");
-		alert("splits " + ids[0] +" " + ids[1]);
+	//	alert("splits " + ids[0] +" " + ids[1]);
 		var rate = document.getElementById(ids[0]).value;
-		alert(rate);
+	//	alert(rate);
 		//insertLikedItems
 		var userId = window.localStorage.getItem('userId');
 		 $.ajax({
@@ -168,11 +189,11 @@ function getLists() {
 	
 	//rate artist
 function rateArtist(artist){
-	alert("inside rates" + artist);
+//	alert("inside rates" + artist);
 	var ids = artist.split("-");
-	alert("splits " + ids[0] +" " + ids[1]);
+//	alert("splits " + ids[0] +" " + ids[1]);
 	var rate = document.getElementById(ids[0]).value;
-	alert(rate);
+//	alert(rate);
 	var userId = window.localStorage.getItem('userId');
 	
  	$.ajax({
@@ -195,11 +216,11 @@ function rateArtist(artist){
 //rate genre
 function rateGenre(genre){
 	
-	alert("inside rates" + genre);
+//	alert("inside rates" + genre);
 	var ids = genre.split("-");
-	alert("splits " + ids[0] +" " + ids[1]);
+//	alert("splits " + ids[0] +" " + ids[1]);
 	var rate = document.getElementById(ids[0]).value;
-	alert(rate);
+//	alert(rate);
 	var userId = window.localStorage.getItem('userId');
 	
  	$.ajax({
@@ -225,16 +246,16 @@ function rateGenre(genre){
 	
 	//add to cart
 	function addtocart(cart){
-		alert("inside add to cart");
+	//	alert("inside add to cart");
 		
 		var ids = cart.split("-");
 		alert("splits " + ids[0] +" " + ids[1]+" "+ids[2]);
-		//var rate = document.getElementById(ids[2]).value;
-		//alert(rate);
+	//	var rate = document.getElementById(ids[2]).value;
+	//	alert(rate);
 		
 		var userId = window.localStorage.getItem('userId');
 		
-	 	$.ajax({
+	 	 $.ajax({
 			url : "music/Auth/addtocart",
 			type : "POST",
 			data : "userId=" + userId + "&itemId=" + ids[0] + "&itemType=" + ids[1] +"&itemPrice="+ ids[2],
@@ -247,7 +268,7 @@ function rateGenre(genre){
 				alert('Could not process request.. ' + errorThrown);
 				window.location.href = "userDashBoard.jsp";
 			}
-		}); 
+		});  
 		
 	}
 	
@@ -257,7 +278,7 @@ function getCart(){
 		
 var userId = window.localStorage.getItem('userId');
 	
-	alert( userId);
+//	alert( userId);
 	
 	
 	$.ajax({
@@ -266,7 +287,7 @@ var userId = window.localStorage.getItem('userId');
 		data : "userId=" + userId,
 		dataType : "json",
 		success : function(data, textStatus, jqXHR) {
-			alert("success");
+	//		alert("success");
 			window.location.href = "cart.jsp";
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
@@ -278,7 +299,7 @@ var userId = window.localStorage.getItem('userId');
 	}	
 	
 function getReccomendation() {
-	alert("got into it");
+	//alert("got into it");
 	var userId = window.localStorage.getItem('userId');
 	var trackUrl = "http://54.67.115.194:8080/tracks/"+userId;
 	var albumUrl = "http://54.67.115.194:8080/albums/"+userId;
@@ -375,11 +396,11 @@ function getReccomendation() {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
+          <a class="navbar-brand" href="#">MusicLibrary</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Dashboard</a></li>
+            <li><a href="userDashBoard.jsp">Dashboard</a></li>
             <li><a href="#">Settings</a></li>
             <li><a href="#">Profile</a></li>
             <li><a href="#">Help</a></li>
@@ -399,6 +420,7 @@ function getReccomendation() {
              <li><a href="Recommendation.jsp" onclick="getReccomendation();">Recommendations</a></li>
             <li><a href="#" onClick="getCart();" >Cart</a></li>
             <li><a href="#"  onclick="getLists();">History</a></li>
+             <li><a href="#"  onclick="logout();">Logout</a></li>
           </ul>
           
         </div>
@@ -518,6 +540,8 @@ function getReccomendation() {
 							
 							<td><button
 									class="btn btn-success" type="button" id="${item.getAlbumId()}-${item.getType()}" onclick="rateAlbum(this.id)">Rate</button></td>
+							
+							<td><button class="btn btn-primary" type="button" id="${item.getAlbumId()}-${item.getType()}-${item.getPrice()}" onClick="addtocart(this.id);">Add to Cart</button></td>
 							
 							
 						</tr> 

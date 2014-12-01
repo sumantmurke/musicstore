@@ -56,11 +56,11 @@ function userLogin(){
 
 //div show 
 function showSignupDiv(){
-	alert("inside show div");
+//	alert("inside show div");
 	document.getElementById('div1').style.display = "none";
 	document.getElementById('signupdiv').style.display = "block";
 	
-	alert("after show div");
+//	alert("after show div");
 }
 
 

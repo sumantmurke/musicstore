@@ -2,14 +2,7 @@ package com.musicLibrary.Dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.musicLibrary.Beans.Albums;
-import com.musicLibrary.Beans.Item_purchase;
-import com.musicLibrary.Beans.Tracks;
 
 
 public class TransactionDao {

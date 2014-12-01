@@ -13,6 +13,7 @@ public class DatabaseConnection {
 	private static String dbUsername = "root";
 	private static String dbPassword = "akshay12";
 
+
 	public static Connection getConnection() throws Exception {
 		Connection connection = null;
 		Class.forName("com.mysql.jdbc.Driver").newInstance();

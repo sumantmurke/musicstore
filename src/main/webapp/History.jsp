@@ -55,18 +55,18 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
+          <a class="navbar-brand" href="#">MusicLibrary</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Dashboard</a></li>
+            <li><a href="userDashBoard.jsp">Dashboard</a></li>
             <li><a href="#">Settings</a></li>
             <li><a href="#">Profile</a></li>
             <li><a href="#">Help</a></li>
           </ul>
-          <form class="navbar-form navbar-right">
+         <!--  <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
-          </form>
+          </form> -->
         </div>
       </div>
     </nav> 
@@ -105,7 +105,7 @@
 
  <%  } else {%> 
  
- <h2>No Tracks Found</h2>
+ <h3>No Tracks Found</h3>
  
  <% } %>
  
@@ -137,7 +137,7 @@
 
  <%  } else {%> 
  
- <h2>No Albums Found</h2>
+ <h3>No Albums Found</h3>
  
  <% } %>
  
@@ -163,7 +163,7 @@
 				</table>
           </div>
  <%  } else {%> 
- <h2>No Artist Found</h2>
+ <h3>No Artist Found</h3>
  <% } %>
  
   <h2>Genre History</h2>
@@ -188,7 +188,7 @@
 				</table>
           </div>
  <%  } else {%> 
- <h2>No Artist Found</h2>
+ <h3>No Genre Found</h3>
  <% } %>
  
 </div>
