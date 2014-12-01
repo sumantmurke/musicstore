@@ -6,6 +6,7 @@ public class Albums {
 	String genreIds;
 	float price;
 	String type;
+	private String rating;
 	
 	
 	public String getType() {
@@ -61,5 +62,11 @@ public class Albums {
 	 */
 	public void setPrice(float price) {
 		this.price = price;
+	}
+	public String getRating() {
+		return rating;
+	}
+	public void setRating(String rating) {
+		this.rating = rating;
 	}
 }

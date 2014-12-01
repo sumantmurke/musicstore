@@ -40,7 +40,7 @@ public class SearchDao {
 						tracks.setArtistId((null == resultSet.getString("artistId"))? "" : resultSet.getString("artistId"));
 						tracks.setGenreIds((null == resultSet.getString("genreIds"))? "" : resultSet.getString("genreIds"));
 						tracks.setPrice(resultSet.getFloat("price"));
-						tracks.setType("Track");
+						tracks.setType("track");
 						tracksList.add(tracks);
 					}
 			} catch (SQLException e) {
@@ -76,7 +76,7 @@ public class SearchDao {
 						album.setArtistId((null == resultSet.getString("artistId"))? "" : resultSet.getString("artistId"));
 						album.setGenreIds((null == resultSet.getString("genreIds"))? "" : resultSet.getString("genreIds"));
 						album.setPrice(resultSet.getFloat("price"));
-						album.setType("Album");
+						album.setType("album");
 						albumList.add(album);
 					}
 			} catch (Exception e) {

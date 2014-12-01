@@ -19,6 +19,7 @@ import com.musicLibrary.Beans.Albums;
 import com.musicLibrary.Beans.Tracks;
 import com.musicLibrary.Beans.User;
 import com.musicLibrary.service.AuthenticationProcess;
+import com.musicLibrary.service.ItemsLikedProcess;
 import com.musicLibrary.service.SearchProcess;
 import com.musicLibrary.service.TrackProcess;
 
@@ -67,14 +68,14 @@ public class Authentication {
 	public Response serachItems(@QueryParam("itemId") String itemId,
 			@QueryParam("itemType") String itemType,
 			@Context HttpServletRequest request) {
-		
-		HttpSession session= request.getSession(true);
+
+		HttpSession session = request.getSession(true);
 		System.out.println("in serch" + itemId);
 		SearchProcess searchProcess = new SearchProcess();
-		
+
 		List<Tracks> tracksList = new ArrayList<Tracks>();
 		List<Albums> albumList = new ArrayList<Albums>();
-		
+
 		if (itemType.trim().toLowerCase().equals("track")) {
 			tracksList = searchProcess.serachtracks(itemId);
 			if (tracksList.isEmpty()) {
@@ -82,10 +83,11 @@ public class Authentication {
 				return Response.status(400).entity(output).build();
 			}
 		}
-		//request.setAttribute("searchedTracks", tracksList);
+		// request.setAttribute("searchedTracks", tracksList);
 		session.setAttribute("searchedTracks", tracksList);
 		for (Tracks track : tracksList) {
-			System.out.println(track.getTrackId() + " " + track.getAlbumId() + " " + track.getPrice());
+			System.out.println(track.getTrackId() + " " + track.getAlbumId()
+					+ " " + track.getPrice());
 		}
 
 		if (itemType.trim().toLowerCase().equals("album")) {
@@ -95,12 +97,55 @@ public class Authentication {
 				return Response.status(400).entity(output).build();
 			}
 		}
-		//request.setAttribute("searchedAlbums", albumList);
+		// request.setAttribute("searchedAlbums", albumList);
 		session.setAttribute("searchedAlbums", albumList);
 		for (Albums album : albumList) {
 			System.out.println(album.getAlbumId() + " " + album.getPrice());
 		}
 		System.out.println("test git");
+		return Response.status(200).entity(new User(1, "amol")).build();
+	}
+
+	@POST
+	@Path("/insertLikedItems")
+	// @Produces(MediaType.APPLICATION_JSON)
+	public Response insertLikedItems(@FormParam("userId") String userId,
+			@FormParam("itemId") String itemId,
+			@FormParam("rating") String rating,
+			@FormParam("itemType") String type,
+			@Context HttpServletRequest request) {
+		ItemsLikedProcess itemsLikedProcess = new ItemsLikedProcess();
+		boolean isInserted = false;
+		isInserted = itemsLikedProcess.inserLikedIten(userId, itemId, rating,
+				type);
+		String output = "success";
+		if (!isInserted) {
+			output = "not inserted";
+			return Response.status(400).entity(output).build();
+		}
+		System.out.println("inserted");
+		return Response.status(200).entity(output).build();
+	}
+
+	@GET
+	@Path("/getLikedItems")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getLikedItems(@QueryParam("userId") String userId,
+			@Context HttpServletRequest request) {
+		ItemsLikedProcess itemsLikedProcess = new ItemsLikedProcess();
+		HttpSession session = request.getSession(true);
+
+		List<Tracks> tracksList = new ArrayList<Tracks>();
+		List<Albums> albumList = new ArrayList<Albums>();
+
+		tracksList = itemsLikedProcess.searchLikedTracks(userId);
+		for (Tracks track : tracksList) {
+			System.out.println(track.getTrackId() + " " + track.getRating() + " " + track.getType());
+		}
+		albumList = itemsLikedProcess.searchLikedAlbums(userId);
+		for (Albums album : albumList) {
+			System.out.println(album.getAlbumId() + " " + album.getRating() + " " + album.getType());
+		}
 		return Response.status(200).entity(new User(1, "amol")).build();
 	}
 }

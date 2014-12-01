@@ -7,7 +7,7 @@ public class Tracks {
 	String genreIds;
 	float price;
 	String type;
-	
+	private String rating;
 	
 	
 	public String getType() {
@@ -90,6 +90,14 @@ public class Tracks {
 	 */
 	public void setGenreIds(String genreIds) {
 		this.genreIds = genreIds;
+	}
+
+	public String getRating() {
+		return rating;
+	}
+
+	public void setRating(String rating) {
+		this.rating = rating;
 	}
 
 }
