@@ -108,8 +108,8 @@
 </head>
 
 <body onload="getDetails();">
-	 
-	 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	 <%@include file="navbar.jsp"%>
+	 <!-- <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -132,15 +132,15 @@
           </form>
         </div>
       </div>
-    </nav>
+    </nav> -->
 
     <div class="container-fluid" style="margin-top:80px;">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#">Find Songs <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Recommendations</a></li>
-            <li><a href="#">Analytics</a></li>
+            <li><a href="Recommendation.jsp">Recommendations</a></li>
+            <li><a href="#">Cart</a></li>
             <li><a href="#">History</a></li>
           </ul>
           
