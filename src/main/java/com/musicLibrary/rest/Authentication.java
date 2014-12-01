@@ -172,4 +172,15 @@ public class Authentication {
 		}
 		return Response.status(200).entity(new User(1, "amol")).build();
 	}
+	
+	@POST
+	@Path("/addtocart")
+
+	public Response addtocart(@FormParam("userId") String userId,
+			@Context HttpServletRequest request){
+		
+		return null;
+		
+	}
+
 }

@@ -166,6 +166,27 @@ function getLists() {
 	}
 	
 	
+	//add to cart
+	function addtocart(){
+		alert("inside add to cart");
+		
+		$.ajax({
+			url : "music/Auth/addtocart",
+			type : "POST",
+			data : "userId=" + userId + "&itemId=" + ids[0] + "&rating=" + rate + "&itemType=" + ids[1],
+			//dataType : "json",
+			success : function(data, textStatus, jqXHR) {
+				alert("success" + data);
+				//window.location.href = "userDashBoard.jsp";
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				alert('Could not process request.. ' + errorThrown);
+				window.location.href = "userDashBoard.jsp";
+			}
+		});
+		
+	}
+	
 	</script>
 
 </head>
@@ -203,7 +224,7 @@ function getLists() {
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#">Find Songs <span class="sr-only">(current)</span></a></li>
             <li><a href="Recommendation.jsp">Recommendations</a></li>
-            <li><a href="#">Cart</a></li>
+            <li><a href="cart.jsp">Cart</a></li>
             <li><a href="#"  onclick="getLists();">History</a></li>
           </ul>
           
@@ -237,7 +258,7 @@ function getLists() {
         <!-- Search bar end-->
         
 
-<!-- Search Table-->
+<!-- Search Table for track-->
 <% if (session.getAttribute("isTrackFound") != null) { %>
 <div id="searchtable" class="table-responsive" style="margin-top:20px; ">
             
@@ -274,7 +295,9 @@ function getLists() {
 							<td><button
 									class="btn btn-success" id="${item.getTrackId()}-${item.getType()}" type="button" onclick="rates(this.id)">Rate</button></td>
 									
-						
+							<td><button class="btn btn-primary" type="button" onClick="addtocart();">Add to Cart</button></td>
+							
+							
 						
 							
 							
