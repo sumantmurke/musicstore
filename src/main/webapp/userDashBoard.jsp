@@ -166,6 +166,63 @@ function getLists() {
 	}
 	
 	
+	//rate artist
+function rateArtist(artist){
+	alert("inside rates" + artist);
+	var ids = artist.split("-");
+	alert("splits " + ids[0] +" " + ids[1]);
+	var rate = document.getElementById(ids[0]).value;
+	alert(rate);
+	var userId = window.localStorage.getItem('userId');
+	
+/* 	$.ajax({
+		url : "music/Auth/insertLikedItems",
+		type : "POST",
+		data : "userId=" + userId + "&itemId=" + ids[0] + "&rating=" + rate + "&itemType=" + ids[1],
+		//dataType : "json",
+		success : function(data, textStatus, jqXHR) {
+			alert("success" + data);
+			//window.location.href = "userDashBoard.jsp";
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			alert('Could not process request.. ' + errorThrown);
+			window.location.href = "userDashBoard.jsp";
+		}
+	}); 
+	 */
+	}	
+	
+//rate genre
+function rateGenre(genre){
+	
+	alert("inside rates" + genre);
+	var ids = genre.split("-");
+	alert("splits " + ids[0] +" " + ids[1]);
+	var rate = document.getElementById(ids[0]).value;
+	alert(rate);
+	var userId = window.localStorage.getItem('userId');
+	
+/* 	$.ajax({
+		url : "music/Auth/insertLikedItems",
+		type : "POST",
+		data : "userId=" + userId + "&itemId=" + ids[0] + "&rating=" + rate + "&itemType=" + ids[1],
+		//dataType : "json",
+		success : function(data, textStatus, jqXHR) {
+			alert("success" + data);
+			//window.location.href = "userDashBoard.jsp";
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			alert('Could not process request.. ' + errorThrown);
+			window.location.href = "userDashBoard.jsp";
+		}
+	}); 
+	 */
+	
+}
+	
+	
+	
+	
 	//add to cart
 	function addtocart(cart){
 		alert("inside add to cart");
@@ -344,6 +401,8 @@ var userId = window.localStorage.getItem('userId');
           </div>
 <%  } %>
 
+<!-- for album -->
+
 <% if (session.getAttribute("isAlbumFound") != null) { %>
 
 <div id="albumtable"class="table-responsive" style="margin-top:20px;">
@@ -388,6 +447,77 @@ var userId = window.localStorage.getItem('userId');
           </div>
 
 <%  } %>
+
+
+<!-- for artist -->
+
+<% if (session.getAttribute("isArtistFound") != null) { %>
+
+<div id="albumtable"class="table-responsive" style="margin-top:20px;">
+           
+              <table id="example" class="table table-hover">
+					<thead>
+						<tr>
+							<th>Artist Id</th>
+							<th>Rating</th>
+						</tr>
+					</thead>
+					<tbody>
+					<c:forEach var="item" items="${searchedArtist}" >
+					
+						 <tr>
+							
+							<td id="artistid">${item.getArtistId()}</td>
+							<td><input id="${item.getArtistId()}"  type="text" placeholder="0-99" maxlength="2" size="2"></td>
+							
+							<td><button
+									class="btn btn-success" type="button" id="${item.getArtistId()}-${item.getType()}" onclick="rateArtist(this.id)">Rate</button></td>
+										
+						</tr> 
+						</c:forEach>
+					</tbody>
+					 
+				</table>
+          
+          </div>
+
+<%  } %>
+
+
+<!-- for Genre -->
+<% if (session.getAttribute("isGenreFound") != null) { %>
+
+<div id="albumtable"class="table-responsive" style="margin-top:20px;">
+           
+              <table id="example" class="table table-hover">
+					<thead>
+						<tr>
+							<th>Genre Id</th>
+							<th>Rating</th>
+						</tr>
+					</thead>
+					<tbody>
+					<c:forEach var="item" items="${searchedGenre}" >
+					
+						 <tr>
+							
+							<td id="artistid">${item.getGenreId()}</td>
+							<td><input id="${item.getGenreId()}"  type="text" placeholder="0-99" maxlength="2" size="2"></td>
+							
+							<td><button
+									class="btn btn-success" type="button" id="${item.getGenreId()}-${item.getType()}" onclick="rateGenre(this.id)">Rate</button></td>
+										
+						</tr> 
+						</c:forEach>
+					</tbody>
+					 
+				</table>
+          
+          </div>
+
+<%  } %>
+
+
 
 <!--Search Table end-->
 
