@@ -93,17 +93,13 @@
 	}
 
 
-	
-	//rate
-	function rate(){
+	function rates(track){
+		alert("inside rates" + track);
+		var ids = track.split("-");
+		alert("splits " + ids[0] +" " + ids[1]);
+		var rate = document.getElementById(ids[0]).value;
+		alert(rate);
 		
-		alert("inside rate");
-		var trackid = document.getElementById ( "trackid" ).innerText;
-		var albumid = document.getElementById ( "albumid" ).innerText;
-		var artistid = document.getElementById ( "artistid" ).innerText;
-		var genreid = document.getElementById ( "genreid" ).innerText;
-		var price = document.getElementById('pricevalue').value;	
-		alert("track id: "+trackid + " album id: "+albumid+" artistid: "+artistid+" genreid: "+genreid+" price: "+price+"" );
 	}
 	
 	
@@ -190,6 +186,7 @@
 							<th>Genre Id</th>
 							<th>Price</th>
 							<th>Rate</th>
+							<th style="display:none;">Type</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -205,11 +202,16 @@
 							<td id="genreid">${item.getGenreIds()}</td>
 							
 							<td id="price">${item.getPrice()}</td>
-							
-							<td><input id="pricevalue"  type="text" placeholder="0-99" maxlength="2" size="2"></td>
-							
+								
+							<td><input id="${item.getTrackId()}" type="text" placeholder="0-99" maxlength="2" size="2"></td>
+								
+							<td id="type" data-type="${item.getType()}" style="display:none;"></td>
+						
 							<td><button
-									class="btn btn-success" type="button" onclick="rate()">Rate</button></td>
+									class="btn btn-success" id="${item.getTrackId()}-${item.getType()}" type="button" onclick="rates(this.id)">Rate</button></td>
+									
+						
+						
 							
 							
 						</tr> 
