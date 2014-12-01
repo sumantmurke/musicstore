@@ -202,3 +202,11 @@ CREATE TABLE `musicLibrary`.`cart_purchase` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
     
+CREATE TABLE `musicLibrary`.`transaction` (
+  `idtransaction` INT NOT NULL AUTO_INCREMENT,
+  `userId` VARCHAR(20) NOT NULL,
+  `ccNumber` VARCHAR(16) NOT NULL,
+  `total` DECIMAL(4,2) NOT NULL,
+  `timestamp` TIMESTAMP NULL,
+  PRIMARY KEY (`idtransaction`));
+  
