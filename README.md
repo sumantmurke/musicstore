@@ -210,3 +210,8 @@ CREATE TABLE `musicLibrary`.`transaction` (
   `timestamp` TIMESTAMP NULL,
   PRIMARY KEY (`idtransaction`));
   
+  
+  CREATE TABLE `musicLibrary`.`artists` (
+  `idartists` INT NOT NULL);
+  
+  
