@@ -103,7 +103,7 @@ function getLists() {
 				data : "itemId=" + itemId + "&itemType=" + itemType,
 				dataType : "json",
 				success : function(data, textStatus, jqXHR) {
-				//	alert("success" + data);
+					alert("success" + data);
 					window.location.href = "userDashBoard.jsp";
 				},
 				error : function(jqXHR, textStatus, errorThrown) {
@@ -130,7 +130,7 @@ function getLists() {
 			data : "userId=" + userId + "&itemId=" + ids[0] + "&rating=" + rate + "&itemType=" + ids[1],
 			//dataType : "json",
 			success : function(data, textStatus, jqXHR) {
-		//		alert("success" + data);
+				alert("success" + data);
 				//window.location.href = "userDashBoard.jsp";
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
@@ -155,7 +155,7 @@ function getLists() {
 			data : "userId=" + userId + "&itemId=" + ids[0] + "&rating=" + rate + "&itemType=" + ids[1],
 			//dataType : "json",
 			success : function(data, textStatus, jqXHR) {
-		//		alert("success" + data);
+				alert("success" + data);
 				//window.location.href = "userDashBoard.jsp";
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
@@ -181,7 +181,7 @@ function rateArtist(artist){
 		data : "userId=" + userId + "&itemId=" + ids[0] + "&rating=" + rate + "&itemType=" + ids[1],
 		//dataType : "json",
 		success : function(data, textStatus, jqXHR) {
-	//		alert("success" + data);
+			alert("success" + data);
 			//window.location.href = "userDashBoard.jsp";
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
@@ -208,7 +208,7 @@ function rateGenre(genre){
 		data : "userId=" + userId + "&itemId=" + ids[0] + "&rating=" + rate + "&itemType=genre",
 		//dataType : "json",
 		success : function(data, textStatus, jqXHR) {
-	//		alert("success" + data);
+			alert("success" + data);
 			//window.location.href = "userDashBoard.jsp";
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
@@ -225,16 +225,16 @@ function rateGenre(genre){
 	
 	//add to cart
 	function addtocart(cart){
-//		alert("inside add to cart");
+	//	alert("inside add to cart");
 		
 		var ids = cart.split("-");
-//		alert("splits " + ids[0] +" " + ids[1]+" "+ids[2]);
-		//var rate = document.getElementById(ids[2]).value;
-		//alert(rate);
+		alert("splits " + ids[0] +" " + ids[1]+" "+ids[2]);
+	//	var rate = document.getElementById(ids[2]).value;
+	//	alert(rate);
 		
 		var userId = window.localStorage.getItem('userId');
 		
-	 	$.ajax({
+	 	 $.ajax({
 			url : "music/Auth/addtocart",
 			type : "POST",
 			data : "userId=" + userId + "&itemId=" + ids[0] + "&itemType=" + ids[1] +"&itemPrice="+ ids[2],
@@ -247,7 +247,7 @@ function rateGenre(genre){
 				alert('Could not process request.. ' + errorThrown);
 				window.location.href = "userDashBoard.jsp";
 			}
-		}); 
+		});  
 		
 	}
 	
@@ -518,6 +518,8 @@ function getReccomendation() {
 							
 							<td><button
 									class="btn btn-success" type="button" id="${item.getAlbumId()}-${item.getType()}" onclick="rateAlbum(this.id)">Rate</button></td>
+							
+							<td><button class="btn btn-primary" type="button" id="${item.getAlbumId()}-${item.getType()}-${item.getPrice()}" onClick="addtocart(this.id);">Add to Cart</button></td>
 							
 							
 						</tr> 
