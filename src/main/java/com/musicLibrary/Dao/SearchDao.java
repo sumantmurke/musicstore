@@ -8,12 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.musicLibrary.Beans.Albums;
+import com.musicLibrary.Beans.Artists;
+import com.musicLibrary.Beans.Genre;
 import com.musicLibrary.Beans.Tracks;
 
 public class SearchDao {
 
 	private static final String SEARCH_TRACKS = "select * from tracks where trackId like ? ";
 	private static final String SEARCH_ALBUMS = "select * from albums where albumId like ? ";
+	private static final String SEARCH_ARTIST = "select * from artists where artistId like ? ";
+	private static final String SEARCH_GENRE = "select * from genre where genreId like ? ";
 
 	public List<Tracks> searchtracks(String trackId) {
 		PreparedStatement statement = null;
@@ -86,5 +90,73 @@ public class SearchDao {
 			}
 		}
 		return albumList;
+	}
+	
+	
+	public List<Artists> searchArtist(String artistId){
+
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		Connection connection = null;
+		Artists artist = null;
+		List<Artists> artistList = new ArrayList<Artists>();
+		try {
+			connection = DatabaseConnection.getConnection();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		if (connection != null && null != artistId ) {
+			try {
+				statement = connection.prepareStatement(SEARCH_ARTIST);
+				
+					statement.setString(1, (artistId.trim()+"%"));
+					resultSet = statement.executeQuery();
+					while (resultSet.next()) {
+						artist = new Artists();
+						artist.setArtistId((null == resultSet.getString("artistId"))? "" : resultSet.getString("artistId"));
+						artist.setType("artist");
+						artistList.add(artist);
+					}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				DatabaseConnection.closeAllDb(connection, resultSet, statement);
+			}
+		}
+		return artistList;
+	}
+	
+
+	public List<Genre> searchGenre(String genreId){
+
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		Connection connection = null;
+		Genre genre = null;
+		List<Genre> genreList = new ArrayList<Genre>();
+		try {
+			connection = DatabaseConnection.getConnection();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		if (connection != null && null != genreId ) {
+			try {
+				statement = connection.prepareStatement(SEARCH_GENRE);
+				
+					statement.setString(1, (genreId.trim()+"%"));
+					resultSet = statement.executeQuery();
+					while (resultSet.next()) {
+						genre = new Genre();
+						genre.setGenreId((null == resultSet.getString("genreId"))? "" : resultSet.getString("genreId"));
+						genre.setType("genere");
+						genreList.add(genre);
+					}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				DatabaseConnection.closeAllDb(connection, resultSet, statement);
+			}
+		}
+		return genreList;
 	}
 }
