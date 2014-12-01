@@ -91,6 +91,19 @@
 
 
 	
+	//rate
+	function rate(){
+		
+		alert("inside rate");
+		var trackid = document.getElementById ( "trackid" ).innerText;
+		var albumid = document.getElementById ( "albumid" ).innerText;
+		var artistid = document.getElementById ( "artistid" ).innerText;
+		var genreid = document.getElementById ( "genreid" ).innerText;
+		var price = document.getElementById('pricevalue').value;	
+		alert("track id: "+trackid + " album id: "+albumid+" artistid: "+artistid+" genreid: "+genreid+" price: "+price+"" );
+	}
+	
+	
 	</script>
 
 </head>
@@ -172,19 +185,29 @@
 							<th>Album Id</th>
 							<th>Artist Id</th>
 							<th>Genre Id</th>
+							<th>Price</th>
+							<th>Rate</th>
 						</tr>
 					</thead>
 					<tbody>
 					<c:forEach var="item" items="${searchedTracks}" >
 					
 						 <tr>
-							<td>${item.getTrackId()}</td>
+							<td id="trackid">${item.getTrackId()}</td>
 							
-							<td>${item.getAlbumId()}</td>
+							<td id="albumid">${item.getAlbumId()}</td>
 							
-							<td>${item.getArtistId()}</td>
+							<td id="artistid">${item.getArtistId()}</td>
 							
-							<td>${item.getGenreIds()}</td>
+							<td id="genreid">${item.getGenreIds()}</td>
+							
+							<td id="price">${item.getPrice()}</td>
+							
+							<td><input id="pricevalue"  type="text" placeholder="0-99" maxlength="2" size="2"></td>
+							
+							<td><button
+									class="btn btn-success" type="button" onclick="rate()">Rate</button></td>
+							
 							
 						</tr> 
 						</c:forEach>
