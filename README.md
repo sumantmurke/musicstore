@@ -171,6 +171,9 @@ id bigint(20)  not null  primary key auto_increment,,
 userid varchar(20),
 
 
+itemid varchar(20),
+
+
 rating  varchar(20),
 
 
