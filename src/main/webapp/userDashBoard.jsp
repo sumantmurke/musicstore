@@ -175,7 +175,7 @@ function rateArtist(artist){
 	alert(rate);
 	var userId = window.localStorage.getItem('userId');
 	
-/* 	$.ajax({
+ 	$.ajax({
 		url : "music/Auth/insertLikedItems",
 		type : "POST",
 		data : "userId=" + userId + "&itemId=" + ids[0] + "&rating=" + rate + "&itemType=" + ids[1],
@@ -189,7 +189,7 @@ function rateArtist(artist){
 			window.location.href = "userDashBoard.jsp";
 		}
 	}); 
-	 */
+	 
 	}	
 	
 //rate genre
@@ -202,10 +202,10 @@ function rateGenre(genre){
 	alert(rate);
 	var userId = window.localStorage.getItem('userId');
 	
-/* 	$.ajax({
+ 	$.ajax({
 		url : "music/Auth/insertLikedItems",
 		type : "POST",
-		data : "userId=" + userId + "&itemId=" + ids[0] + "&rating=" + rate + "&itemType=" + ids[1],
+		data : "userId=" + userId + "&itemId=" + ids[0] + "&rating=" + rate + "&itemType=genre",
 		//dataType : "json",
 		success : function(data, textStatus, jqXHR) {
 			alert("success" + data);
@@ -216,7 +216,7 @@ function rateGenre(genre){
 			window.location.href = "userDashBoard.jsp";
 		}
 	}); 
-	 */
+	 
 	
 }
 	
