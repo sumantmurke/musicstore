@@ -162,3 +162,25 @@ insert into albums (albumId, artistId, genreIds) values ('10', '1', '1,56,23');
 
 insert into albums (albumId, artistId, genreIds) values ('11', '1', '1,56,23');
 
+create table itemsLiked(
+
+
+id bigint(20),
+
+
+userid bigint(20),
+
+
+rating int(10),
+
+
+type varchar(10),
+
+
+isProcessed boolean default false,
+
+
+time_stamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+
+);
