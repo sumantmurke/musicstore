@@ -71,6 +71,9 @@
 	        var itemId = ele.value;
 	        var itemType = document.getElementById("searchButton").innerHTML;
 	        
+	       // document.getElementById('reccotable').style.display = "none";
+	    	//document.getElementById('searchtable').style.display = "block";
+	        
 	        $.ajax({
 				url : "music/Auth/serachItems",
 				type : "GET",
@@ -175,8 +178,8 @@
         <!-- Search bar end-->
         
 
-<!-- Table-->
-<div class="table-responsive" style="margin-top:20px;">
+<!-- Search Table-->
+<div id="searchtable" class="table-responsive" style="margin-top:20px; ">
             
               <table id="example" class="table table-hover">
 					<thead>
@@ -217,7 +220,52 @@
           
           </div>
 
-<!-- Table end-->
+<!--Search Table end-->
+
+
+<!-- Table recco 
+<div id="reccotable"class="table-responsive" style="margin-top:20px;">
+            <h2>Here are some recommended songs for you</h2>
+              <table id="example" class="table table-hover">
+					<thead>
+						<tr>
+							<th>Track Id</th>
+							<th>Album Id</th>
+							<th>Artist Id</th>
+							<th>Genre Id</th>
+							<th>Price</th>
+							<th>Rate</th>
+						</tr>
+					</thead>
+					<tbody>
+					<c:forEach var="item" items="${tracks}" >
+					
+						 <tr>
+							<td id="trackid">${item.getTrackId()}</td>
+							
+							<td id="albumid">${item.getAlbumId()}</td>
+							
+							<td id="artistid">${item.getArtistId()}</td>
+							
+							<td id="genreid">${item.getGenreIds()}</td>
+							
+							<td id="price">${item.getPrice()}</td>
+							
+							<td><input id="pricevalue"  type="text" placeholder="0-99" maxlength="2" size="2"></td>
+							
+							<td><button
+									class="btn btn-success" type="button" onclick="rate()">Rate</button></td>
+							
+							
+						</tr> 
+						</c:forEach>
+					</tbody>
+					 
+				</table>
+          
+          </div>
+          -->
+         <!-- table recco finish --> 
 
         </div>
       </div>
