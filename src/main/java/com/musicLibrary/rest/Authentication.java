@@ -473,4 +473,17 @@ public class Authentication {
 		
 		return Response.status(200).entity("success").build();
 	}
+	
+	@GET
+	@Path("/logout")
+	public Response logout(@Context HttpServletRequest req) {
+		HttpSession session= req.getSession(true);
+		session.invalidate();
+		System.out.println("User has logged out !");
+		String output = "User has succesfully logged out";
+	
+		
+		 return Response.status(200).entity(output).build();
+		
+	}
 }

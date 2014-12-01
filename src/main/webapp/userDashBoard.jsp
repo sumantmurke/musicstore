@@ -23,6 +23,27 @@
 
 <script type="text/javascript">
 
+
+function logout(){
+	alert("inside logout");
+	var userId = window.localStorage.getItem('userId');
+	$.ajax({
+		url : "music/Auth/logout",
+		type : "GET",
+	
+		success : function(data, textStatus, jqXHR) {
+			//alert("success");
+			window.location.href = "index.jsp";
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			alert('Could not process request.. ' + errorThrown);
+			alert("problem")
+			//window.location.href = "index.jsp";
+		}
+	});
+	
+}
+
 function getLists() {
 	var userId = window.localStorage.getItem('userId');
 	
@@ -399,6 +420,7 @@ function getReccomendation() {
              <li><a href="Recommendation.jsp" onclick="getReccomendation();">Recommendations</a></li>
             <li><a href="#" onClick="getCart();" >Cart</a></li>
             <li><a href="#"  onclick="getLists();">History</a></li>
+             <li><a href="#"  onclick="logout();">Logout</a></li>
           </ul>
           
         </div>
