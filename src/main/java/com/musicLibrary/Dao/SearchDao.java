@@ -148,7 +148,7 @@ public class SearchDao {
 					while (resultSet.next()) {
 						genre = new Genre();
 						genre.setGenreId((null == resultSet.getString("genreId"))? "" : resultSet.getString("genreId"));
-						genre.setType("genere");
+						genre.setType("genre");
 						genreList.add(genre);
 					}
 			} catch (Exception e) {

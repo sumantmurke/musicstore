@@ -94,7 +94,14 @@ public class Authentication {
 		HttpSession session = request.getSession(true);
 		System.out.println("in serch" + itemId);
 		SearchProcess searchProcess = new SearchProcess();
-
+		
+		//resetting
+		session.setAttribute("likedTrackFound", null);
+		session.setAttribute("likedAlbumFound", null);
+		session.setAttribute("likedArtistFound", null);
+		session.setAttribute("likedGenreFound", null);
+		//resetting endsw
+		
 		List<Tracks> tracksList = new ArrayList<Tracks>();
 		List<Albums> albumList = new ArrayList<Albums>();
 		List<Artists> artistList = new ArrayList<Artists>();
@@ -205,27 +212,33 @@ public class Authentication {
 			@Context HttpServletRequest request) {
 		ItemsLikedProcess itemsLikedProcess = new ItemsLikedProcess();
 		HttpSession session = request.getSession(true);
-
+		
+		// resetting
+		session.setAttribute("isTrackFound", null);
+		session.setAttribute("isAlbumFound", null);
+		session.setAttribute("isArtistFound", null);
+		session.setAttribute("isGenreFound", null);
+		//resetting ends
 		List<Tracks> tracksList = new ArrayList<Tracks>();
 		List<Albums> albumList = new ArrayList<Albums>();
-		//List<Artists> artistList = new ArrayList<Artists>();
-		//List<Genre> GenreList = new ArrayList<Genre>();
+		List<Artists> artistList = new ArrayList<Artists>();
+		List<Genre> genreList = new ArrayList<Genre>();
 		
 		String likedTrackFound = null;
 		String likedAlbumFound = null;
-		//String likedArtistFound = null;
-		//String likedGenreFound = null;
+		String likedArtistFound = null;
+		String likedGenreFound = null;
 		
-		session.setAttribute("searchedTracks", tracksList);
-		session.setAttribute("searchedAlbums", albumList);
-		//session.setAttribute("searchedArtist", artistList);
-		//session.setAttribute("searchedGenre", GenreList);
+		session.setAttribute("likedTracks", tracksList);
+		session.setAttribute("likedAlbums", albumList);
+		session.setAttribute("likedArtist", artistList);
+		session.setAttribute("likedGenre", genreList);
 		
 		
 		session.setAttribute("likedTrackFound", likedTrackFound);
 		session.setAttribute("likedAlbumFound", likedAlbumFound);
-		//session.setAttribute("likedArtistFound", likedArtistFound);
-		//session.setAttribute("likedGenreFound", likedGenreFound);
+		session.setAttribute("likedArtistFound", likedArtistFound);
+		session.setAttribute("likedGenreFound", likedGenreFound);
 		
 		//for track
 		tracksList = itemsLikedProcess.searchLikedTracks(userId);
@@ -251,14 +264,26 @@ public class Authentication {
 		
 		//for artist
 		
-		
-		
-		
+		//Artist
+		artistList = itemsLikedProcess.searchLikedArtists(userId);
+		if (!artistList.isEmpty()) {
+			session.setAttribute("likedArtist", artistList);
+			session.setAttribute("likedArtistFound", "true");
+		}
+		for (Artists artist : artistList) {
+			System.out.println(artist.getArtistId() + " " + artist.getRating());
+		}
 		
 		//for genre
-		
-		
-		
+		genreList = itemsLikedProcess.searchLikedGenre(userId);
+		if (!genreList.isEmpty()) {
+			session.setAttribute("likedGenre", genreList);
+			session.setAttribute("likedGenreFound", "true");
+			
+		}
+		for (Genre genre : genreList) {
+			System.out.println(genre.getGenreId() + " " + genre.getRating());
+		}
 		
 		return Response.status(200).entity(new User(1, "amol")).build();
 	}

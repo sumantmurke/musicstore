@@ -141,8 +141,55 @@
  
  <% } %>
  
+ <h2>Artist History</h2>
+<% if (session.getAttribute("likedArtistFound") != null) { %> 
+<div id="searchtable" class="table-responsive" style="margin-top:20px; ">
+            
+              <table id="example" class="table table-hover">
+					<thead>
+						<tr>
+							<th>Item Id</th>
+							<th>Rating</th>
+						</tr>
+					</thead>
+					<tbody>
+					<c:forEach var="item" items="${likedArtist}" >
+						 <tr>
+							<td id="itemid">${item.getArtistId()}</td>
+							<td id="albumid">${item.getRating()}</td>
+						</tr> 
+						</c:forEach>
+					</tbody>
+				</table>
+          </div>
+ <%  } else {%> 
+ <h2>No Artist Found</h2>
+ <% } %>
  
- 
+  <h2>Genre History</h2>
+<% if (session.getAttribute("likedGenreFound") != null) { %> 
+<div id="searchtable" class="table-responsive" style="margin-top:20px; ">
+            
+              <table id="example" class="table table-hover">
+					<thead>
+						<tr>
+							<th>Item Id</th>
+							<th>Rating</th>
+						</tr>
+					</thead>
+					<tbody>
+					<c:forEach var="item" items="${likedGenre}" >
+						 <tr>
+							<td id="itemid">${item.getGenreId()}</td>
+							<td id="albumid">${item.getRating()}</td>
+						</tr> 
+						</c:forEach>
+					</tbody>
+				</table>
+          </div>
+ <%  } else {%> 
+ <h2>No Artist Found</h2>
+ <% } %>
  
 </div>
 
