@@ -77,7 +77,7 @@ function signup(){
 	    datatype : "json",
 	    	success:function(data, textStatus, jqXHR){
 	    		
-		    	window.location.href="userDashBoard.jsp";  
+		    	window.location.href="index.jsp";  
 		    },
 	    error: function(jqXHR, textStatus, errorThrown){
 	    	alert('Could not process request.. ' + errorThrown);
