@@ -212,6 +212,98 @@ CREATE TABLE `musicLibrary`.`transaction` (
   
   
  
+ 
+insert into genre values (1);
+
+
+insert into genre values (2);
+
+
+insert into genre values (3);
+
+
+insert into genre values (4);
+
+
+insert into genre values (5);
+
+
+insert into genre values (6);
+
+
+insert into genre values (7);
+
+
+insert into genre values (8);
+
+
+insert into genre values (9);
+
+
+insert into genre values (10);
+
+
+insert into genre values (11);
+
+
+insert into genre values (12);
+
+
+insert into genre values (13);
+
+
+insert into genre values (14);
+
+
+insert into genre values (15);
+
+
+
+
+
+insert into artists values (1);
+
+
+insert into artists values (2);
+
+
+insert into artists values (3);
+
+
+insert into artists values (4);
+
+
+insert into artists values (5);
+
+
+insert into artists values (6);
+
+
+insert into artists values (7);
+
+
+insert into artists values (8);
+
+
+insert into artists values (9);
+
+
+insert into artists values (10);
+
+
+insert into artists values (11);
+
+
+insert into artists values (12);
+
+
+insert into artists values (13);
+
+
+insert into artists values (14);
+
+
+insert into artists values (15);
   
 CREATE TABLE `musicLibrary`.`artists` (
   `artistId` VARCHAR(20) NOT NULL);
