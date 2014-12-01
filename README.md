@@ -187,3 +187,18 @@ time_stamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 
 );
+
+
+CREATE TABLE `musicLibrary`.`cart_purchase` (
+  `userid` BIGINT(20) NOT NULL,
+  `itemId` VARCHAR(20) NOT NULL,
+  `itemType` VARCHAR(20) NOT NULL,
+  `price` VARCHAR(20) NOT NULL,
+  `isPurchased` INT NOT NULL DEFAULT 0,
+  INDEX `fk_cart_purchase_userID_idx` (`userid` ASC),
+  CONSTRAINT `fk_cart_purchase_userID`
+    FOREIGN KEY (`userid`)
+    REFERENCES `musicLibrary`.`user_details` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
