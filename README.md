@@ -187,3 +187,36 @@ time_stamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 
 );
+
+
+CREATE TABLE `musicLibrary`.`cart_purchase` (
+  `userid` BIGINT(20) NOT NULL,
+  `itemId` VARCHAR(20) NOT NULL,
+  `itemType` VARCHAR(20) NOT NULL,
+  `price` VARCHAR(20) NOT NULL,
+  `isPurchased` INT NOT NULL DEFAULT 0,
+  INDEX `fk_cart_purchase_userID_idx` (`userid` ASC),
+  CONSTRAINT `fk_cart_purchase_userID`
+    FOREIGN KEY (`userid`)
+    REFERENCES `musicLibrary`.`user_details` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+CREATE TABLE `musicLibrary`.`transaction` (
+  `idtransaction` INT NOT NULL AUTO_INCREMENT,
+  `userId` VARCHAR(20) NOT NULL,
+  `ccNumber` VARCHAR(16) NOT NULL,
+  `total` DECIMAL(4,2) NOT NULL,
+  `timestamp` TIMESTAMP NULL,
+  PRIMARY KEY (`idtransaction`));
+  
+  
+ 
+  
+CREATE TABLE `musicLibrary`.`artists` (
+  `artistId` VARCHAR(20) NOT NULL);
+  
+CREATE TABLE `musicLibrary`.`genre` (
+  `genreId` VARCHAR(20) NOT NULL);
+  
+  

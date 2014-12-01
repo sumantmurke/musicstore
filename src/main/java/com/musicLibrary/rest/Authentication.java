@@ -75,16 +75,23 @@ public class Authentication {
 
 		List<Tracks> tracksList = new ArrayList<Tracks>();
 		List<Albums> albumList = new ArrayList<Albums>();
-
+		
+		String isTrackFound = null;
+		String isAlbumFound = null;
+		
+		session.setAttribute("searchedTracks", tracksList);
+		session.setAttribute("searchedAlbums", albumList);
+		
+		session.setAttribute("isTrackFound", isTrackFound);
+		session.setAttribute("isAlbumFound", isAlbumFound);
+		
 		if (itemType.trim().toLowerCase().equals("track")) {
 			tracksList = searchProcess.serachtracks(itemId);
-			if (tracksList.isEmpty()) {
-				String output = "Nothing found";
-				return Response.status(400).entity(output).build();
-			}
+			session.setAttribute("searchedTracks", tracksList);
+			session.setAttribute("isTrackFound", "true");
 		}
 		// request.setAttribute("searchedTracks", tracksList);
-		session.setAttribute("searchedTracks", tracksList);
+		
 		for (Tracks track : tracksList) {
 			System.out.println(track.getTrackId() + " " + track.getAlbumId()
 					+ " " + track.getPrice());
@@ -92,13 +99,11 @@ public class Authentication {
 
 		if (itemType.trim().toLowerCase().equals("album")) {
 			albumList = searchProcess.searchAlbums(itemId);
-			if (albumList.isEmpty()) {
-				String output = "Nothing found";
-				return Response.status(400).entity(output).build();
-			}
+			session.setAttribute("searchedAlbums", albumList);
+			session.setAttribute("isAlbumFound", "true");
 		}
 		// request.setAttribute("searchedAlbums", albumList);
-		session.setAttribute("searchedAlbums", albumList);
+		
 		for (Albums album : albumList) {
 			System.out.println(album.getAlbumId() + " " + album.getPrice());
 		}
@@ -138,11 +143,30 @@ public class Authentication {
 		List<Tracks> tracksList = new ArrayList<Tracks>();
 		List<Albums> albumList = new ArrayList<Albums>();
 
+		String likedTrackFound = null;
+		String likedAlbumFound = null;
+		
+		session.setAttribute("searchedTracks", tracksList);
+		session.setAttribute("searchedAlbums", albumList);
+		
+		session.setAttribute("likedTrackFound", likedTrackFound);
+		session.setAttribute("likedAlbumFound", likedAlbumFound);
+		
 		tracksList = itemsLikedProcess.searchLikedTracks(userId);
+		if (!tracksList.isEmpty()) {
+		session.setAttribute("likedTracks", tracksList);
+		session.setAttribute("likedTrackFound", "true");
+		}
 		for (Tracks track : tracksList) {
 			System.out.println(track.getTrackId() + " " + track.getRating() + " " + track.getType());
 		}
 		albumList = itemsLikedProcess.searchLikedAlbums(userId);
+		if (!tracksList.isEmpty()) {
+			session.setAttribute("likedAlbums", albumList);
+			session.setAttribute("likedAlbumFound", "true");
+			}
+		
+		
 		for (Albums album : albumList) {
 			System.out.println(album.getAlbumId() + " " + album.getRating() + " " + album.getType());
 		}

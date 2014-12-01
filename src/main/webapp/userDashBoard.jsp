@@ -22,6 +22,29 @@
 <title>Dashboard</title>
 
 <script type="text/javascript">
+
+function getLists() {
+	var userId = window.localStorage.getItem('userId');
+	
+	alert( userId);
+	
+	
+	$.ajax({
+		url : "music/Auth/getLikedItems",
+		type : "GET",
+		data : "userId=" + userId,
+		dataType : "json",
+		success : function(data, textStatus, jqXHR) {
+			alert("success");
+			window.location.href = "History.jsp";
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			alert('Could not process request.. ' + errorThrown);
+			window.location.href = "userDashBoard.jsp";
+		}
+	});
+}
+
 	function getDetails() {
 		var firstName = window.localStorage.getItem('firstName');
 		var lastName = window.localStorage.getItem('lastName');
@@ -99,7 +122,47 @@
 		alert("splits " + ids[0] +" " + ids[1]);
 		var rate = document.getElementById(ids[0]).value;
 		alert(rate);
-		
+		//insertLikedItems
+		var userId = window.localStorage.getItem('userId');
+		$.ajax({
+			url : "music/Auth/insertLikedItems",
+			type : "POST",
+			data : "userId=" + userId + "&itemId=" + ids[0] + "&rating=" + rate + "&itemType=" + ids[1],
+			//dataType : "json",
+			success : function(data, textStatus, jqXHR) {
+				alert("success" + data);
+				//window.location.href = "userDashBoard.jsp";
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				alert('Could not process request.. ' + errorThrown);
+				window.location.href = "userDashBoard.jsp";
+			}
+		});
+	}
+	
+	//rate album
+	function rateAlbum(album){
+		alert("inside rates" + album);
+		var ids = album.split("-");
+		alert("splits " + ids[0] +" " + ids[1]);
+		var rate = document.getElementById(ids[0]).value;
+		alert(rate);
+		//insertLikedItems
+		var userId = window.localStorage.getItem('userId');
+		 $.ajax({
+			url : "music/Auth/insertLikedItems",
+			type : "POST",
+			data : "userId=" + userId + "&itemId=" + ids[0] + "&rating=" + rate + "&itemType=" + ids[1],
+			//dataType : "json",
+			success : function(data, textStatus, jqXHR) {
+				alert("success" + data);
+				//window.location.href = "userDashBoard.jsp";
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				alert('Could not process request.. ' + errorThrown);
+				window.location.href = "userDashBoard.jsp";
+			}
+		}); 
 	}
 	
 	
@@ -108,7 +171,7 @@
 </head>
 
 <body onload="getDetails();">
-	 
+	<%--  <%@include file="navbar.jsp"% --%>>
 	 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -132,16 +195,16 @@
           </form>
         </div>
       </div>
-    </nav>
+    </nav> 
 
     <div class="container-fluid" style="margin-top:80px;">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#">Find Songs <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Recommendations</a></li>
-            <li><a href="#">Analytics</a></li>
-            <li><a href="#">History</a></li>
+            <li><a href="Recommendation.jsp">Recommendations</a></li>
+            <li><a href="#">Cart</a></li>
+            <li><a href="#"  onclick="getLists();">History</a></li>
           </ul>
           
         </div>
@@ -175,6 +238,7 @@
         
 
 <!-- Search Table-->
+<% if (session.getAttribute("isTrackFound") != null) { %>
 <div id="searchtable" class="table-responsive" style="margin-top:20px; ">
             
               <table id="example" class="table table-hover">
@@ -221,6 +285,52 @@
 				</table>
           
           </div>
+<%  } %>
+
+<% if (session.getAttribute("isAlbumFound") != null) { %>
+
+<div id="albumtable"class="table-responsive" style="margin-top:20px;">
+           
+              <table id="example" class="table table-hover">
+					<thead>
+						<tr>
+							
+							<th>Album Id</th>
+							<th>Artist Id</th>
+							<th>Genre Id</th>
+							<th>Price</th>
+							<th>Rate</th>
+						</tr>
+					</thead>
+					<tbody>
+					<c:forEach var="item" items="${searchedAlbums}" >
+					
+						 <tr>
+							
+							
+							<td id="albumid">${item.getAlbumId()}</td>
+							
+							<td id="artistid">${item.getArtistId()}</td>
+							
+							<td id="genreid">${item.getGenreIds()}</td>
+							
+							<td id="price">${item.getPrice()}</td>
+							
+							<td><input id="${item.getAlbumId()}"  type="text" placeholder="0-99" maxlength="2" size="2"></td>
+							
+							<td><button
+									class="btn btn-success" type="button" id="${item.getAlbumId()}-${item.getType()}" onclick="rateAlbum(this.id)">Rate</button></td>
+							
+							
+						</tr> 
+						</c:forEach>
+					</tbody>
+					 
+				</table>
+          
+          </div>
+
+<%  } %>
 
 <!--Search Table end-->
 
