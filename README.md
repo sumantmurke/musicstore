@@ -168,10 +168,10 @@ create table itemsLiked(
 id bigint(20)  not null  primary key auto_increment,,
 
 
-userid bigint(20),
+userid varchar(20),
 
 
-rating int(10),
+rating  varchar(20),
 
 
 type varchar(10),
